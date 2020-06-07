@@ -6,11 +6,15 @@ import java.util.List;
 import top.kwind.rlfz.rbac.pojo.RolePower;
 import top.kwind.rlfz.rbac.mapper.RolePowerMapper;
 import top.kwind.rlfz.rbac.service.RolePowerService;
-@Service
+@Service("rolePowerService")
 public class RolePowerServiceImpl implements RolePowerService{
 
     @Resource
     private RolePowerMapper rolePowerMapper;
 
 
+    @Override
+    public Boolean updatePowerOfRole(String roleId, String[] split) {
+        return null;
+    }
 }

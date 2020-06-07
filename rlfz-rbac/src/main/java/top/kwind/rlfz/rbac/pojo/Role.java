@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 public class Role implements Serializable {
     /**
@@ -30,6 +33,12 @@ public class Role implements Serializable {
     * 	创建时间
     */
     private Date createTime;
+
+
+    /**
+     * 提供前端 显示
+     * */
+    transient private boolean checked = false;
 
     private static final long serialVersionUID = 1L;
 }

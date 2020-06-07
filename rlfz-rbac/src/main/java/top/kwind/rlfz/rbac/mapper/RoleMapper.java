@@ -1,24 +1,44 @@
 package top.kwind.rlfz.rbac.mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.Date;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import top.kwind.rlfz.rbac.pojo.Role;
 
+/**
+ * @author xagu
+ */
 @Mapper
 public interface RoleMapper {
-    int deleteByPrimaryKey(Integer roleId);
 
-    int insert(Role record);
+    /**
+     * 插入角色
+     * @param record
+     * @return
+     */
+    int insertRole(Role record);
 
-    int insertSelective(Role record);
+    /**
+     * 根据可选条件搜索
+     * @param role
+     * @return
+     */
+    List<Role> selectByAll(Role role);
 
-    Role selectByPrimaryKey(Integer roleId);
 
-    int updateByPrimaryKeySelective(Role record);
+    /**
+     * 修改角色信息通过id
+     * @param record
+     * @return
+     */
+    int updateById(Role record);
 
-    int updateByPrimaryKey(Role record);
 
-    int updateBatch(List<Role> list);
-
-    int updateBatchSelective(List<Role> list);
+    /**
+     * 批量删除通过id
+     * @param split
+     * @return
+     */
+    int batchDelete(String[] split);
 }
