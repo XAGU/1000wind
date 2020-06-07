@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.kwind.rlfz.course.mapper.CourseVideoMapper">
+  <resultMap id="BaseResultMap" type="top.kwind.rlfz.course.pojo.CourseVideo">
+    <!--@mbg.generated-->
+    <!--@Table course_video-->
+    <id column="vedio_id" jdbcType="INTEGER" property="vedioId" />
+    <result column="vedio_name" jdbcType="VARCHAR" property="vedioName" />
+    <result column="vedio_url" jdbcType="VARCHAR" property="vedioUrl" />
+    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    vedio_id, vedio_name, vedio_url, menu_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from course_video
+    where vedio_id = #{vedioId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from course_video
+    where vedio_id = #{vedioId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="vedio_id" keyProperty="vedioId" parameterType="top.kwind.rlfz.course.pojo.CourseVideo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into course_video (vedio_name, vedio_url, menu_id
+      )
+    values (#{vedioName,jdbcType=VARCHAR}, #{vedioUrl,jdbcType=VARCHAR}, #{menuId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="vedio_id" keyProperty="vedioId" parameterType="top.kwind.rlfz.course.pojo.CourseVideo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into course_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vedioName != null">
+        vedio_name,
+      </if>
+      <if test="vedioUrl != null">
+        vedio_url,
+      </if>
+      <if test="menuId != null">
+        menu_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vedioName != null">
+        #{vedioName,jdbcType=VARCHAR},
+      </if>
+      <if test="vedioUrl != null">
+        #{vedioUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="top.kwind.rlfz.course.pojo.CourseVideo">
+    <!--@mbg.generated-->
+    update course_video
+    <set>
+      <if test="vedioName != null">
+        vedio_name = #{vedioName,jdbcType=VARCHAR},
+      </if>
+      <if test="vedioUrl != null">
+        vedio_url = #{vedioUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where vedio_id = #{vedioId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.kwind.rlfz.course.pojo.CourseVideo">
+    <!--@mbg.generated-->
+    update course_video
+    set vedio_name = #{vedioName,jdbcType=VARCHAR},
+      vedio_url = #{vedioUrl,jdbcType=VARCHAR},
+      menu_id = #{menuId,jdbcType=INTEGER}
+    where vedio_id = #{vedioId,jdbcType=INTEGER}
+  </update>
+</mapper>
