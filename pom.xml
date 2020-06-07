@@ -23,6 +23,10 @@
         <module>rlfz-course</module>
         <!--通知相关-->
         <module>rlfz-message</module>
+        <!--实训方案-->
+        <module>rlfz-practical</module>
+        <!--签到相关-->
+        <module>rlfz-sign</module>
     </modules>
 
 
