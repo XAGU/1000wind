@@ -4,17 +4,36 @@
     <option name="projectProfile">
       <ProjectProfile>
         <option name="addSerializeUid" value="true" />
+        <option name="deleteByPrimayKeyEnabled" value="false" />
         <option name="generateService" value="true" />
         <option name="generateServiceInterface" value="true" />
-        <option name="javaMapperPackage" value="top.kwind.rlfz.rbac.mapper" />
-        <option name="javaMapperPath" value="$PROJECT_DIR$/rlfz-rbac/src/main/java" />
-        <option name="javaModelPackage" value="top.kwind.rlfz.rbac.pojo" />
-        <option name="javaModelPath" value="$PROJECT_DIR$/rlfz-rbac/src/main/java" />
-        <option name="lastDatabaseCrudChooseModuleName" value="rlfz-rbac" />
+        <option name="insertMethodEnabled" value="false" />
+        <option name="insertSelectiveMethodEnabled" value="false" />
+        <option name="javaMapperPackage" value="top.kwind.rlfz.message.mapper" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+        <option name="javaModelPackage" value="top.kwind.rlfz.message.pojo" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="rlfz-message" />
         <option name="lombokDataAnnotation" value="true" />
         <option name="mapperAnnotaion" value="true" />
         <option name="moduleNameToPackageAndPathMap">
           <map>
+            <entry key="rlfz-message">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="top.kwind.rlfz.message.mapper" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+                  <option name="javaModelPacakge" value="top.kwind.rlfz.message.pojo" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+                  <option name="javaServiceInterfacePackage" value="top.kwind.rlfz.message.service" />
+                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+                  <option name="javaServicePackage" value="top.kwind.rlfz.message.service.impl" />
+                  <option name="javaServicePath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+                  <option name="xmlPackage" value="top.kwind.rlfz.message.mapper.xml" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
             <entry key="rlfz-rbac">
               <value>
                 <UserPackageAndPathInfoByModule>
@@ -33,8 +52,26 @@
             </entry>
           </map>
         </option>
+        <option name="selectByPrimaryKeyEnabled" value="false" />
         <option name="tableGenerateConfigs">
           <map>
+            <entry key="1000wind:message">
+              <value>
+                <TableGenerateConfig>
+                  <option name="deleteByPrimayKeyEnabled" value="false" />
+                  <option name="generatedKey" value="message_id" />
+                  <option name="insertMethodEnabled" value="false" />
+                  <option name="insertSelectiveMethodEnabled" value="false" />
+                  <option name="javaModelName" value="Message" />
+                  <option name="moduleName" value="rlfz-message" />
+                  <option name="selectByPrimaryKeyEnabled" value="false" />
+                  <option name="updateBatchSelective" value="true" />
+                  <option name="updateByPrimaryKeySelectiveEnabled" value="false" />
+                  <option name="updateByPrimaykeyEnabled" value="false" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
             <entry key="1000wind:power">
               <value>
                 <TableGenerateConfig>
@@ -98,10 +135,10 @@
             </entry>
           </map>
         </option>
-        <option name="updateBatch" value="true" />
-        <option name="updateBatchSelective" value="true" />
-        <option name="xmlMapperPackage" value="top.kwind.rlfz.rbac.mapper.xml" />
-        <option name="xmlMapperPath" value="$PROJECT_DIR$/rlfz-rbac/src/main/java" />
+        <option name="updateByPrimaryKeySelectiveEnabled" value="false" />
+        <option name="updateByPrimaykeyEnabled" value="false" />
+        <option name="xmlMapperPackage" value="top.kwind.rlfz.message.mapper.xml" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/rlfz-message/src/main/java" />
       </ProjectProfile>
     </option>
   </component>

@@ -6,10 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rlfz-rbac" />
         <module name="rlfz-course" />
-        <module name="rlfz-entrance" />
         <module name="rlfz-common" />
+        <module name="rlfz-entrance" />
+        <module name="rlfz-message" />
+        <module name="rlfz-rbac" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />
@@ -19,6 +20,7 @@
       <module name="rlfz-common" options="-parameters" />
       <module name="rlfz-course" options="-parameters" />
       <module name="rlfz-entrance" options="-parameters" />
+      <module name="rlfz-message" options="-parameters" />
       <module name="rlfz-rbac" options="-parameters" />
     </option>
   </component>

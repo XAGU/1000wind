@@ -20,6 +20,7 @@ import javax.annotation.Resource;
  * Email:xagu_qc@foxmail.com
  * Describe: 用户操作相关
  */
+//@RestController 注解的作用，所有的方法都返回json相当于 @Controller + @ResponseBody
 @RestController
 @RequestMapping("api/user")
 @Validated

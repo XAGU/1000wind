@@ -21,6 +21,8 @@
         <module>rlfz-rbac</module>
         <!--课程相关-->
         <module>rlfz-course</module>
+        <!--通知相关-->
+        <module>rlfz-message</module>
     </modules>
 
 
