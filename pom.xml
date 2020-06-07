@@ -23,6 +23,8 @@
         <module>rlfz-course</module>
         <!--通知相关-->
         <module>rlfz-message</module>
+
+        <!--test-->
     </modules>
 
 
