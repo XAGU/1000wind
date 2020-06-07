@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="rlfz-rbac" />
+        <module name="rlfz-course" />
         <module name="rlfz-entrance" />
         <module name="rlfz-common" />
       </profile>
@@ -16,6 +17,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="rlfz-common" options="-parameters" />
+      <module name="rlfz-course" options="-parameters" />
       <module name="rlfz-entrance" options="-parameters" />
       <module name="rlfz-rbac" options="-parameters" />
     </option>

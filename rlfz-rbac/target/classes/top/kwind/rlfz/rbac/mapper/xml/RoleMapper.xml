@@ -1,164 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.kwind.rlfz.rbac.mapper.RoleMapper">
-  <resultMap id="BaseResultMap" type="top.kwind.rlfz.rbac.pojo.Role">
-    <!--@mbg.generated-->
-    <!--@Table role-->
-    <id column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
-    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
-    <result column="enable" jdbcType="TINYINT" property="enable" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    role_id, role_name, role_code, `enable`, create_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from role
-    where role_id = #{roleId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from role
-    where role_id = #{roleId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="role_id" keyProperty="roleId" parameterType="top.kwind.rlfz.rbac.pojo.Role" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into role (role_name, role_code, `enable`, 
-      create_time)
-    values (#{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{enable,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" keyColumn="role_id" keyProperty="roleId" parameterType="top.kwind.rlfz.rbac.pojo.Role" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="roleName != null">
-        role_name,
-      </if>
-      <if test="roleCode != null">
-        role_code,
-      </if>
-      <if test="enable != null">
-        `enable`,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="roleName != null">
-        #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="roleCode != null">
-        #{roleCode,jdbcType=VARCHAR},
-      </if>
-      <if test="enable != null">
-        #{enable,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="top.kwind.rlfz.rbac.pojo.Role">
-    <!--@mbg.generated-->
-    update role
-    <set>
-      <if test="roleName != null">
-        role_name = #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="roleCode != null">
-        role_code = #{roleCode,jdbcType=VARCHAR},
-      </if>
-      <if test="enable != null">
-        `enable` = #{enable,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where role_id = #{roleId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="top.kwind.rlfz.rbac.pojo.Role">
-    <!--@mbg.generated-->
-    update role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      role_code = #{roleCode,jdbcType=VARCHAR},
-      `enable` = #{enable,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where role_id = #{roleId,jdbcType=INTEGER}
-  </update>
-  <update id="updateBatch" parameterType="java.util.List">
-    <!--@mbg.generated-->
-    update role
-    <trim prefix="set" suffixOverrides=",">
-      <trim prefix="role_name = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.roleName,jdbcType=VARCHAR}
+    <resultMap id="BaseResultMap" type="top.kwind.rlfz.rbac.pojo.Role">
+        <!--@mbg.generated-->
+        <!--@Table role-->
+        <id column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="enable" jdbcType="TINYINT" property="enable"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        role_id, role_name, role_code, `enable`, create_time
+    </sql>
+    <insert id="insertRole" keyColumn="role_id" keyProperty="roleId" parameterType="top.kwind.rlfz.rbac.pojo.Role"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into role (role_name, role_code, `enable`,
+        create_time)
+        values (#{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{enable,jdbcType=TINYINT},
+        #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="top.kwind.rlfz.rbac.pojo.Role">
+        <!--@mbg.generated-->
+        update role
+        <set>
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                role_code = #{roleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                `enable` = #{enable,jdbcType=TINYINT},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=INTEGER}
+    </update>
+
+    <!--auto generated by MybatisCodeHelper on 2020-06-07-->
+    <select id="selectByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from role
+        <where>
+            <if test="roleId != null">
+                and role_id=#{roleId,jdbcType=INTEGER}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name=#{roleName,jdbcType=VARCHAR}
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                and role_code=#{roleCode,jdbcType=VARCHAR}
+            </if>
+            <if test="enable != null">
+                and `enable`=#{enable,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
+    <delete id="batchDelete">
+        delete from role where role_id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id,jdbcType=VARCHAR}
         </foreach>
-      </trim>
-      <trim prefix="role_code = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.roleCode,jdbcType=VARCHAR}
-        </foreach>
-      </trim>
-      <trim prefix="`enable` = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.enable,jdbcType=TINYINT}
-        </foreach>
-      </trim>
-      <trim prefix="create_time = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
-        </foreach>
-      </trim>
-    </trim>
-    where role_id in
-    <foreach close=")" collection="list" item="item" open="(" separator=", ">
-      #{item.roleId,jdbcType=INTEGER}
-    </foreach>
-  </update>
-  <update id="updateBatchSelective" parameterType="java.util.List">
-    <!--@mbg.generated-->
-    update role
-    <trim prefix="set" suffixOverrides=",">
-      <trim prefix="role_name = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          <if test="item.roleName != null">
-            when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.roleName,jdbcType=VARCHAR}
-          </if>
-        </foreach>
-      </trim>
-      <trim prefix="role_code = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          <if test="item.roleCode != null">
-            when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.roleCode,jdbcType=VARCHAR}
-          </if>
-        </foreach>
-      </trim>
-      <trim prefix="`enable` = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          <if test="item.enable != null">
-            when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.enable,jdbcType=TINYINT}
-          </if>
-        </foreach>
-      </trim>
-      <trim prefix="create_time = case" suffix="end,">
-        <foreach collection="list" index="index" item="item">
-          <if test="item.createTime != null">
-            when role_id = #{item.roleId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
-          </if>
-        </foreach>
-      </trim>
-    </trim>
-    where role_id in
-    <foreach close=")" collection="list" item="item" open="(" separator=", ">
-      #{item.roleId,jdbcType=INTEGER}
-    </foreach>
-  </update>
+    </delete>
 </mapper>

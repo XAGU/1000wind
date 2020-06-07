@@ -19,6 +19,8 @@
         <module>rlfz-entrance</module>
         <!--权限管理：包括登录鉴权的实现，基于spring Security-->
         <module>rlfz-rbac</module>
+        <!--课程相关-->
+        <module>rlfz-course</module>
     </modules>
 
 
