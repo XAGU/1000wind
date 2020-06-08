@@ -22,9 +22,9 @@ public class CourseMenu implements Serializable {
     private String menuName;
 
     /**
-    * 	课程id
+    * 	课程,多目录对一课程
     */
-    private Integer courseId;
+    private Course course;
 
     private static final long serialVersionUID = 1L;
 }

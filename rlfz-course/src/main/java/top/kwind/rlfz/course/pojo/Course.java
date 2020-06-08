@@ -47,7 +47,7 @@ public class Course implements Serializable {
     private Byte courseStyle;
 
     /**
-     *科目类型
+     *科目类型,多课程对一科目
      */
     private SubjectType subjectType;
 
