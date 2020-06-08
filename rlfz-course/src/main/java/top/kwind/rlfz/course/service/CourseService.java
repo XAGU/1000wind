@@ -17,4 +17,25 @@ public interface CourseService{
          * @return
          */
         PageInfo<Course> selectByAll(PageDomain pageDomain, Course course);
+
+        /**
+         * 插入新的课程
+         * @param course
+         * @return
+         */
+        Boolean insertCourse(Course course);
+
+        /**
+         * 修改课程信息
+         * @param course
+         * @return
+         */
+        Boolean updateCourse(Course course);
+
+        /**
+         * 批量删除课程
+         * @param ids
+         * @return
+         */
+        Boolean batchDelete(String[] ids);
     }
