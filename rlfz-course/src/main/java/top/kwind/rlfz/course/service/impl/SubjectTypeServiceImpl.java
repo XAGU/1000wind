@@ -1,7 +1,12 @@
 package top.kwind.rlfz.course.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.mapper.SubjectTypeMapper;
 import top.kwind.rlfz.course.pojo.SubjectType;
 import top.kwind.rlfz.course.service.SubjectTypeService;
@@ -17,34 +22,25 @@ public class SubjectTypeServiceImpl implements SubjectTypeService{
     @Resource
     private SubjectTypeMapper subjectTypeMapper;
 
+
     @Override
-    public int deleteByPrimaryKey(Integer subjectId) {
-        return subjectTypeMapper.deleteByPrimaryKey(subjectId);
+    public PageInfo<SubjectType> selectByAll(PageDomain pageDomain,SubjectType subjectType) {
+        PageHelper.startPage(pageDomain.getPage(),pageDomain.getLimit());
+        return new PageInfo<>(subjectTypeMapper.selectByAll(subjectType));
     }
 
     @Override
-    public int insert(SubjectType record) {
-        return subjectTypeMapper.insert(record);
+    public Boolean insertSubject(SubjectType subjectType) {
+        return subjectTypeMapper.insertSubject(subjectType) > 0;
     }
 
     @Override
-    public int insertSelective(SubjectType record) {
-        return subjectTypeMapper.insertSelective(record);
+    public Boolean updateSubject(SubjectType subjectType) {
+        return subjectTypeMapper.updateSubject(subjectType) > 0;
     }
 
     @Override
-    public SubjectType selectByPrimaryKey(Integer subjectId) {
-        return subjectTypeMapper.selectByPrimaryKey(subjectId);
+    public Boolean deleteSubjects(String[] ids) {
+        return subjectTypeMapper.deleteSubjects(ids) > 0;
     }
-
-    @Override
-    public int updateByPrimaryKeySelective(SubjectType record) {
-        return subjectTypeMapper.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public int updateByPrimaryKey(SubjectType record) {
-        return subjectTypeMapper.updateByPrimaryKey(record);
-    }
-
 }

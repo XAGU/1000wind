@@ -3,6 +3,8 @@ package top.kwind.rlfz.course.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import top.kwind.rlfz.course.pojo.SubjectType;
 
+import java.util.List;
+
 /**     
   * 
   * @Author:         HXC
@@ -11,15 +13,34 @@ import top.kwind.rlfz.course.pojo.SubjectType;
 
 @Mapper
 public interface SubjectTypeMapper {
-    int deleteByPrimaryKey(Integer subjectId);
 
-    int insert(SubjectType record);
+    /**
+     * 根据条件查询
+     *
+     * @param subjectType
+     * @return
+     */
+    List<SubjectType> selectByAll(SubjectType subjectType);
 
-    int insertSelective(SubjectType record);
+    /**
+     * 添加科目
+     *
+     * @param subjectType
+     * @return
+     */
+    int insertSubject(SubjectType subjectType);
 
-    SubjectType selectByPrimaryKey(Integer subjectId);
+    /**
+     * 修改科目
+     * @param subjectType
+     * @return
+     */
+    int updateSubject(SubjectType subjectType);
 
-    int updateByPrimaryKeySelective(SubjectType record);
-
-    int updateByPrimaryKey(SubjectType record);
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    int deleteSubjects(String[] ids);
 }
