@@ -14,4 +14,26 @@ public interface MessageService{
      * @return
      */
     PageInfo<Message> selectByAll(PageDomain pageDomain, Message message);
+
+    /**
+     * 添加message
+     * @param message
+     * @return
+     */
+    Boolean insertMessage(Message message);
+
+    /**
+     * 更新message
+     * @param message
+     * @return
+     */
+    Boolean updateMessageById(Message message);
+
+    /**
+     *通过id删除message
+     * @param ids
+     * @return
+     */
+    Boolean deleteMessageById(String[] ids);
+
 }
