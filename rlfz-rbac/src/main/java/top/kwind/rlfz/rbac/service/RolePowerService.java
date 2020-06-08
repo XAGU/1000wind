@@ -14,5 +14,5 @@ public interface RolePowerService{
      * @param split
      * @return
      */
-    Boolean updatePowerOfRole(String roleId, String[] split);
+    Boolean updatePowerOfRole(Integer roleId, String[] split);
 }
