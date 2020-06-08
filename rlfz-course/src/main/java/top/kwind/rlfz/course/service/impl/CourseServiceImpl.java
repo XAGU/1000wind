@@ -56,4 +56,9 @@ public class CourseServiceImpl implements CourseService{
         return courseMapper.batchDelete(ids) > 0;
     }
 
+    @Override
+    public Boolean updateCourseClick(Course course) {
+        return courseMapper.updateCourseClick(course) > 0;
+    }
+
 }

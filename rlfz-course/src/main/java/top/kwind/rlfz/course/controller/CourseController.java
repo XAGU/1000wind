@@ -69,4 +69,16 @@ public class CourseController extends BaseController {
                 MessageConstants.REMOVE_SUCCESS,
                 MessageConstants.REMOVE_FAILURE);
     }
+
+    /**
+     * 浏览量加1
+     * @param course
+     * @return
+     */
+    @PutMapping("/addclick")
+    public ResuBean updateCourseClick(Course course){
+        return decide(courseService.updateCourseClick(course),
+                MessageConstants.UPDATE_SUCCESS,
+                MessageConstants.UPDATE_FAILURE);
+    }
 }

@@ -41,8 +41,17 @@ public interface CourseMapper {
 
     /**
      * 批量删除课程
+     *
      * @param ids
      * @return
      */
     int batchDelete(String[] ids);
+
+    /**
+     * 点击量+1
+     *
+     * @param course
+     * @return
+     */
+    int updateCourseClick(Course course);
 }

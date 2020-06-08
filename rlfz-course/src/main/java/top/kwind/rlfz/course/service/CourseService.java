@@ -38,4 +38,11 @@ public interface CourseService{
          * @return
          */
         Boolean batchDelete(String[] ids);
+
+        /**
+         * 浏览量加1
+         * @param course
+         * @return
+         */
+        Boolean updateCourseClick(Course course);
     }
