@@ -7,6 +7,10 @@ import top.kwind.rlfz.message.pojo.Message;
 
 import java.util.List;
 
+/**
+ * 消息通知dao层
+ */
+
 @Mapper
 public interface MessageMapper {
     /**
@@ -16,5 +20,24 @@ public interface MessageMapper {
      */
     List<Message> selectByAll(Message message);
 
+    /**
+     * 添加message
+     * @param message
+     * @return
+     */
+    int insertMessage(Message message);
 
+    /**
+     * 更新message
+     * @param message
+     * @return
+     */
+    int updateById(Message message);
+
+    /**
+     * 通过id删除message
+     * @param ids
+     * @return
+     */
+    int deleteById(String[] ids);
 }
