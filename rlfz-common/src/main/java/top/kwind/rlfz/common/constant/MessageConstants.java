@@ -30,4 +30,6 @@ public class MessageConstants {
 
     public static String ADD_FAILURE = "增加失败";
 
+
+
 }

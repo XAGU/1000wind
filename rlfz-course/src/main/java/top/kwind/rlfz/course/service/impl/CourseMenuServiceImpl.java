@@ -21,7 +21,6 @@ public class CourseMenuServiceImpl implements CourseMenuService{
     @Resource
     private CourseMenuMapper courseMenuMapper;
 
-
     @Override
     public PageInfo<CourseMenu> selectByAll(PageDomain pageDomain, CourseMenu courseMenu) {
         PageHelper.startPage(pageDomain.getPage(),pageDomain.getLimit());
@@ -32,4 +31,15 @@ public class CourseMenuServiceImpl implements CourseMenuService{
     public Boolean insertMenu(CourseMenu courseMenu) {
         return courseMenuMapper.insertMenu(courseMenu) > 0;
     }
+
+    @Override
+    public Boolean updateMenu(CourseMenu courseMenu) {
+        return courseMenuMapper.updateMenu(courseMenu) > 0;
+    }
+
+    @Override
+    public Boolean deleteMenus(String[] ids) {
+        return courseMenuMapper.deleteMenus(ids) > 0;
+    }
+
 }

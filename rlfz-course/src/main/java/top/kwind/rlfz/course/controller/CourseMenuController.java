@@ -2,10 +2,7 @@ package top.kwind.rlfz.course.controller;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.kwind.rlfz.common.constant.MessageConstants;
 import top.kwind.rlfz.common.web.base.BaseController;
 import top.kwind.rlfz.common.web.domain.ResuBean;
@@ -49,4 +46,29 @@ public class CourseMenuController extends BaseController {
                     MessageConstants.SAVE_FAILURE);
     }
 
+    /**
+     * 修改目录
+     *
+     * @param courseMenu
+     * @return
+     */
+    @PutMapping
+    public ResuBean updateMenu(CourseMenu courseMenu){
+        return decide(courseMenuService.updateMenu(courseMenu),
+                    MessageConstants.UPDATE_SUCCESS,
+                    MessageConstants.UPDATE_FAILURE);
+    }
+
+    /**
+     * 删除目录
+     *
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("{ids}")
+    public ResuBean deleteMenus(@PathVariable String[] ids){
+        return decide(courseMenuService.deleteMenus(ids),
+                    MessageConstants.REMOVE_SUCCESS,
+                    MessageConstants.REMOVE_FAILURE);
+    }
 }

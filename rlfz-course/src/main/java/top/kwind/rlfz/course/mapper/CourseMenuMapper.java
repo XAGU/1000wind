@@ -29,4 +29,20 @@ public interface CourseMenuMapper {
      * @return
      */
     int insertMenu(CourseMenu courseMenu);
+
+    /**
+     * 修改课程目录
+     *
+     * @param courseMenu
+     * @return
+     */
+    int updateMenu(CourseMenu courseMenu);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    int deleteMenus(String[] ids);
 }

@@ -11,18 +11,32 @@ import top.kwind.rlfz.course.pojo.CourseMenu;
 
 public interface CourseMenuService{
 
-        /**
-        * 根据条件查询目录
-        * @param pageDomain
-        * @param courseMenu
-        * @return
-        */
+    /**
+    * 根据条件查询目录
+    * @param pageDomain
+    * @param courseMenu
+    * @return
+    */
     PageInfo<CourseMenu> selectByAll(PageDomain pageDomain, CourseMenu courseMenu);
 
-        /**
-         * 添加目录
-         * @param courseMenu
-         * @return
-         */
+    /**
+     * 添加目录
+     * @param courseMenu
+     * @return
+     */
     Boolean insertMenu(CourseMenu courseMenu);
-    }
+
+    /**
+     * 修改目录
+     * @param courseMenu
+     * @return
+     */
+    Boolean updateMenu(CourseMenu courseMenu);
+
+    /**
+     * 删除目录
+     * @param ids
+     * @return
+     */
+    Boolean deleteMenus(String[] ids);
+}
