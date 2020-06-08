@@ -1,5 +1,7 @@
 package top.kwind.rlfz.course.service;
 
+import com.github.pagehelper.PageInfo;
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.CourseMenu;
     /**     
   * 
@@ -9,17 +11,32 @@ import top.kwind.rlfz.course.pojo.CourseMenu;
 
 public interface CourseMenuService{
 
+    /**
+    * 根据条件查询目录
+    * @param pageDomain
+    * @param courseMenu
+    * @return
+    */
+    PageInfo<CourseMenu> selectByAll(PageDomain pageDomain, CourseMenu courseMenu);
 
-    int deleteByPrimaryKey(Integer menuId);
+    /**
+     * 添加目录
+     * @param courseMenu
+     * @return
+     */
+    Boolean insertMenu(CourseMenu courseMenu);
 
-    int insert(CourseMenu record);
+    /**
+     * 修改目录
+     * @param courseMenu
+     * @return
+     */
+    Boolean updateMenu(CourseMenu courseMenu);
 
-    int insertSelective(CourseMenu record);
-
-    CourseMenu selectByPrimaryKey(Integer menuId);
-
-    int updateByPrimaryKeySelective(CourseMenu record);
-
-    int updateByPrimaryKey(CourseMenu record);
-
+    /**
+     * 删除目录
+     * @param ids
+     * @return
+     */
+    Boolean deleteMenus(String[] ids);
 }
