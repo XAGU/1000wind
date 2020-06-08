@@ -58,6 +58,11 @@ public class CourseController extends BaseController {
                 MessageConstants.UPDATE_FAILURE);
     }
 
+    /**
+     * 删除课程
+     * @param ids
+     * @return
+     */
     @DeleteMapping("{ids}")
     public ResuBean batchDelete(@PathVariable String ids){
         return decide(courseService.batchDelete(ids.split(",")),
