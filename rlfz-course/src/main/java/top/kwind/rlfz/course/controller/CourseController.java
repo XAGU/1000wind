@@ -78,7 +78,7 @@ public class CourseController extends BaseController {
     @PutMapping("/addclick")
     public ResuBean updateCourseClick(Course course){
         return decide(courseService.updateCourseClick(course),
-                MessageConstants.UPDATE_SUCCESS,
-                MessageConstants.UPDATE_FAILURE);
+                MessageConstants.ADD_SUCCESS,
+                MessageConstants.ADD_FAILURE);
     }
 }

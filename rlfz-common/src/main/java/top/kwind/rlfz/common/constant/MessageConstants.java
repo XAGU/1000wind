@@ -26,4 +26,8 @@ public class MessageConstants {
 
     public static String BIND_FAILURE = "绑定失败";
 
+    public static String ADD_SUCCESS  = "增加成功";
+
+    public static String ADD_FAILURE = "增加失败";
+
 }
