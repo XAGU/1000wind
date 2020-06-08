@@ -69,7 +69,7 @@ public class MessageController extends BaseController {
     @DeleteMapping("{ids}")
     public ResuBean deleteMessage(@PathVariable String ids){
         return decide(messageService.deleteMessageById(ids.split(",")),
-                MessageConstants.UPDATE_SUCCESS,
-                MessageConstants.UPDATE_FAILURE);
+                MessageConstants.REMOVE_SUCCESS,
+                MessageConstants.REMOVE_FAILURE);
     }
 }
