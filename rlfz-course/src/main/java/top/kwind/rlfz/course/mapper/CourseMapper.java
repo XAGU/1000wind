@@ -15,7 +15,34 @@ import top.kwind.rlfz.course.pojo.Course;
 @Mapper
 public interface CourseMapper {
 
+    /**
+     * 根据条件查询所有
+     *
+     * @param course
+     * @return
+     */
     List<Course> selectByAll(Course course);
 
+    /**
+     * 添加课程
+     *
+     * @param course
+     * @return
+     */
+    int insertCourse(Course course);
 
+    /**
+     * 修改课程
+     *
+     * @param course
+     * @return
+     */
+    int updateCourse(Course course);
+
+    /**
+     * 批量删除课程
+     * @param ids
+     * @return
+     */
+    int batchDelete(String[] ids);
 }

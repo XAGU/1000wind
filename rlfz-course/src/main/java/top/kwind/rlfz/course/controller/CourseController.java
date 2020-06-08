@@ -2,10 +2,10 @@ package top.kwind.rlfz.course.controller;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.kwind.rlfz.common.constant.MessageConstants;
 import top.kwind.rlfz.common.web.base.BaseController;
+import top.kwind.rlfz.common.web.domain.ResuBean;
 import top.kwind.rlfz.common.web.domain.ResuTable;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.Course;
@@ -22,9 +22,46 @@ public class CourseController extends BaseController {
     @Autowired
     private CourseService courseService;
 
+    /**
+     * 根据条件查询课程
+     * @param pageDomain
+     * @param course
+     * @return
+     */
     @GetMapping
     public ResuTable selectByAll(PageDomain pageDomain, Course course){
         PageInfo<Course> coursePageInfo = courseService.selectByAll(pageDomain,course);
         return pageTable(coursePageInfo.getList(),coursePageInfo.getTotal());
+    }
+
+    /**
+     * 插入新的课程
+     * @param course
+     * @return
+     */
+    @PostMapping
+    public ResuBean insertCourse(Course course){
+        return decide(courseService.insertCourse(course),
+                MessageConstants.SAVE_SUCCESS,
+                MessageConstants.SAVE_FAILURE);
+    }
+
+    /**
+     * 修改课程信息
+     * @param course
+     * @return
+     */
+    @PutMapping
+    public ResuBean updateCourse(Course course){
+        return decide(courseService.updateCourse(course),
+                MessageConstants.UPDATE_SUCCESS,
+                MessageConstants.UPDATE_FAILURE);
+    }
+
+    @DeleteMapping("{ids}")
+    public ResuBean batchDelete(@PathVariable String ids){
+        return decide(courseService.batchDelete(ids.split(",")),
+                MessageConstants.REMOVE_SUCCESS,
+                MessageConstants.REMOVE_FAILURE);
     }
 }
