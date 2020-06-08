@@ -96,4 +96,12 @@
             #{id,jdbcType=VARCHAR}
         </foreach>
     </delete>
+
+    <update id="updateCourseClick">
+        update course
+        <set>
+            course_click = course.course_click +1
+        </set>
+        where course_id=#{courseId,jdbcType=INTEGER}
+    </update>
 </mapper>
