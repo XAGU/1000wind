@@ -23,13 +23,16 @@ public class RolePowerController extends BaseController {
     @Resource
     private RolePowerService rolePowerService;
 
+
+
     /**
+     * 修改角色所拥有的权限
      * @param roleId
      * @param powerIds
      * @return
      */
     @PutMapping
-    public ResuBean updatePowerOfRole(String roleId, String powerIds) {
+    public ResuBean updatePowerOfRole(Integer roleId, String powerIds) {
         return decide(rolePowerService.updatePowerOfRole(roleId, powerIds.split(",")),
                 MessageConstants.UPDATE_SUCCESS,
                 MessageConstants.UPDATE_FAILURE);
