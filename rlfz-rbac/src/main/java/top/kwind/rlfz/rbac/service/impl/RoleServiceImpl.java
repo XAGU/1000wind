@@ -45,5 +45,4 @@ public class RoleServiceImpl implements RoleService {
     public Boolean batchDelete(String[] split) {
         return roleMapper.batchDelete(split) > 0;
     }
-
 }
