@@ -1,5 +1,7 @@
 package top.kwind.rlfz.course.service;
 
+import com.github.pagehelper.PageInfo;
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.SubjectType;
     /**     
   * 
@@ -9,17 +11,35 @@ import top.kwind.rlfz.course.pojo.SubjectType;
 
 public interface SubjectTypeService{
 
+        /**
+         * 根据条件查询
+         *
+         * @param subjectType
+         * @return
+         */
+        PageInfo<SubjectType> selectByAll(PageDomain pageDomain,SubjectType subjectType);
 
-    int deleteByPrimaryKey(Integer subjectId);
+        /**
+         * 新增科目
+         *
+         * @param subjectType
+         * @return
+         */
+        Boolean insertSubject(SubjectType subjectType);
 
-    int insert(SubjectType record);
+        /**
+         * 修改科目
+         *
+         * @param subjectType
+         * @return
+         */
+        Boolean updateSubject(SubjectType subjectType);
 
-    int insertSelective(SubjectType record);
-
-    SubjectType selectByPrimaryKey(Integer subjectId);
-
-    int updateByPrimaryKeySelective(SubjectType record);
-
-    int updateByPrimaryKey(SubjectType record);
-
-}
+        /**
+         * 批量删除
+         *
+         * @param ids
+         * @return
+         */
+        Boolean deleteSubjects(String[] ids);
+    }
