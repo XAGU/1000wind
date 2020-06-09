@@ -3,7 +3,10 @@ package top.kwind.rlfz.course.service;
 import com.github.pagehelper.PageInfo;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.Course;
-    /**     
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -45,4 +48,11 @@ public interface CourseService{
          * @return
          */
         Boolean updateCourseClick(Course course);
+
+        /**
+         * 根据科目Id查询课程
+         * @param id
+         * @return
+         */
+        List<Course> selectBySubjectId(Integer id);
     }

@@ -7,7 +7,6 @@
     <id column="video_id" jdbcType="INTEGER" property="videoId" />
     <result column="video_name" jdbcType="VARCHAR" property="videoName" />
     <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
-    <association property="courseMenu" resultMap="top.kwind.rlfz.course.mapper.CourseMenuMapper.BaseResultMap"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -16,11 +15,10 @@
 
     <select id="selectByAll" resultMap="BaseResultMap">
       select video_id,
-        video_name,
-        video_url,
-        cm.*
+      video_name,
+      video_url,
+      menu_id
       from course_video
-      join course_menu cm on course_video.menu_id = cm.menu_id
       <where>
         <if test="videoId != null">
           and video_id = #{videoId,jdbcType=INTEGER}
@@ -29,7 +27,7 @@
           and video_name like concat('%',#{videoName,jdbcType=VARCHAR},'%')
         </if>
         <if test="courseMenu != null and courseMenu.menuId != null">
-          and course_id = #{courseMenu.menuId,jdbcType=INTEGER}
+          and menu_id = #{courseMenu.menuId,jdbcType=INTEGER}
         </if>
       </where>
     </select>
@@ -71,4 +69,12 @@
       #{id,jdbcType=VARCHAR}
     </foreach>
   </delete>
+
+  <select id="selectByMenuId" resultMap="BaseResultMap">
+    select video_id,
+           video_name,
+           video_url,
+           menu_id
+    from course_video where menu_id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

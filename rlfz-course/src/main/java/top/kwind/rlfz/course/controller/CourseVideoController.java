@@ -11,6 +11,8 @@ import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.CourseVideo;
 import top.kwind.rlfz.course.service.CourseVideoService;
 
+import java.util.List;
+
 /**
  * @Author: HXC
  * @CreateDate: 2020/6/9 10:39
@@ -32,6 +34,12 @@ public class CourseVideoController extends BaseController {
     public ResuTable selectByAll(PageDomain pageDomain, CourseVideo courseVideo){
         PageInfo<CourseVideo> videoPageInfo = courseVideoService.selectByAll(pageDomain,courseVideo);
         return pageTable(videoPageInfo.getList(),videoPageInfo.getTotal());
+    }
+
+    @GetMapping("/videoOfMenu/{id}")
+    public ResuTable selectByMenuId(@PathVariable Integer id){
+        List<CourseVideo> videoList = courseVideoService.selectByMenuId(id);
+        return dataTable(videoList);
     }
 
     /**

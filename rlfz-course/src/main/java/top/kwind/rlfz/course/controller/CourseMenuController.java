@@ -11,6 +11,8 @@ import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.CourseMenu;
 import top.kwind.rlfz.course.service.CourseMenuService;
 
+import java.util.List;
+
 /**
  * @Author: HXC
  * @CreateDate: 2020/6/8 19:59
@@ -32,6 +34,17 @@ public class CourseMenuController extends BaseController {
     public ResuTable selectByAll(PageDomain pageDomain, CourseMenu courseMenu){
         PageInfo<CourseMenu> menuPageInfo = courseMenuService.selectByAll(pageDomain,courseMenu);
         return pageTable(menuPageInfo.getList(),menuPageInfo.getTotal());
+    }
+
+    /**
+     * 根据课程id查询目录
+     * @param id
+     * @return
+     */
+    @GetMapping("/menuOfCourse/{id}")
+    public ResuTable selectByCourseId(@PathVariable Integer id){
+        List<CourseMenu> menuList = courseMenuService.selectByCourseId(id);
+        return dataTable(menuList);
     }
 
     /**

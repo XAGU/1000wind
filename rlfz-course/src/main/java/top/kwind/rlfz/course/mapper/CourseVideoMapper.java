@@ -41,4 +41,11 @@ public interface CourseVideoMapper {
      * @return
      */
     int deleteVideos(String[] ids);
+
+    /**
+     * 根据目录id查视频
+     * @param id
+     * @return
+     */
+    List<CourseVideo> selectByMenuId(Integer id);
 }

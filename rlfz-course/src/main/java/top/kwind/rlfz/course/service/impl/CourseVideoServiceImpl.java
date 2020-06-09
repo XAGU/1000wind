@@ -10,7 +10,10 @@ import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.mapper.CourseVideoMapper;
 import top.kwind.rlfz.course.pojo.CourseVideo;
 import top.kwind.rlfz.course.service.CourseVideoService;
-/**     
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -41,5 +44,10 @@ public class CourseVideoServiceImpl implements CourseVideoService{
     @Override
     public Boolean deleteVideos(String[] ids) {
         return courseVideoMapper.deleteVideos(ids) > 0;
+    }
+
+    @Override
+    public List<CourseVideo> selectByMenuId(Integer id) {
+        return courseVideoMapper.selectByMenuId(id);
     }
 }

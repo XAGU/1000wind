@@ -10,8 +10,12 @@ import top.kwind.rlfz.common.tools.DateUtils;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.mapper.CourseMapper;
 import top.kwind.rlfz.course.pojo.Course;
+import top.kwind.rlfz.course.pojo.SubjectType;
 import top.kwind.rlfz.course.service.CourseService;
-/**     
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -36,7 +40,7 @@ public class CourseServiceImpl implements CourseService{
         //设置创建时间为当前时间
         course.setCreateTime(DateUtils.getNowDate());
         //判断是否设置了封面，没设置给默认路径值
-        if(course.getCourseCover() == null && course.getCourseCover().equals("")){
+        if(course.getCourseCover() == null || "".equals(course.getCourseCover()) ){
             course.setCourseCover("https://unsplash.it/1000/450?image=116");
         }
         //设置点击量为0
@@ -59,6 +63,11 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Boolean updateCourseClick(Course course) {
         return courseMapper.updateCourseClick(course) > 0;
+    }
+
+    @Override
+    public List<Course> selectBySubjectId(Integer id) {
+        return courseMapper.selectBySubjectId(id);
     }
 
 }

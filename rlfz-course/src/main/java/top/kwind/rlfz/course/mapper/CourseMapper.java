@@ -54,4 +54,11 @@ public interface CourseMapper {
      * @return
      */
     int updateCourseClick(Course course);
+
+    /**
+     * 根据科目Id查询课程
+     * @param id
+     * @return
+     */
+    List<Course> selectBySubjectId(Integer id);
 }
