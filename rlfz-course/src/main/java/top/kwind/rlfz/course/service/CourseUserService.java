@@ -1,7 +1,12 @@
 package top.kwind.rlfz.course.service;
 
+import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
-    /**     
+import top.kwind.rlfz.rbac.pojo.User;
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -9,17 +14,31 @@ import top.kwind.rlfz.course.pojo.CourseUser;
 
 public interface CourseUserService{
 
+    /**
+     * 查询某个用户所拥有的课程
+     * @param id
+     * @return
+     */
+    List<Course> getCoursesByUserId(Integer id);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 查询某个课程下的所有用户
+     * @param id
+     * @return
+     */
+    List<User> getUsersByCourseId(Integer id);
 
-    int insert(CourseUser record);
+    /**
+     * 为用户添加课程
+     * @param courseUser
+     * @return
+     */
+    Boolean insertUserCourse(CourseUser courseUser);
 
-    int insertSelective(CourseUser record);
-
-    CourseUser selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(CourseUser record);
-
-    int updateByPrimaryKey(CourseUser record);
-
+    /**
+     * 为用户删除课程
+     * @param courseUser
+     * @return
+     */
+    Boolean deleteUserCourse(CourseUser courseUser);
 }

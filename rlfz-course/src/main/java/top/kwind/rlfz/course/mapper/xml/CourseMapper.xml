@@ -10,12 +10,13 @@
         <result column="course_cover" jdbcType="VARCHAR" property="courseCover"/>
         <result column="course_click" jdbcType="INTEGER" property="courseClick"/>
         <result column="course_style" jdbcType="TINYINT" property="courseStyle"/>
+        <result column="creater_id" jdbcType="INTEGER" property="createrId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
         course_id, course_name, course_info, course_cover, course_click, course_style, subject_id,
-        create_time
+        creater_id,create_time
     </sql>
 
     <select id="selectByAll" resultMap="BaseResultMap">
@@ -25,6 +26,7 @@
         course_cover,
         course_click,
         course_style,
+        creater_id,
         create_time
         from course
         <where>
@@ -40,6 +42,9 @@
             <if test="subjectType != null and subjectType.subjectId != null">
                 and subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
             </if>
+            <if test="createrId != null">
+                and creater_id = #{createrId,jdbcType=INTEGER}
+            </if>
         </where>
     </select>
 
@@ -52,6 +57,7 @@
             course_click,
             course_style,
             subject_id,
+            creater_id,
             create_time
         </trim>
         values
@@ -62,6 +68,7 @@
             #{courseClick,jdbcType=INTEGER},
             #{courseStyle,jdbcType=TINYINT},
             #{subjectType.subjectId,jdbcType=INTEGER},
+            #{createrId,jdbcType=INTEGER},
             #{createTime,jdbcType=TIMESTAMP}
         </trim>
     </insert>
@@ -107,6 +114,7 @@
         course_cover,
         course_click,
         course_style,
+        creater_id,
         create_time
         from course
         where subject_id = #{id,jdbcType=INTEGER}
