@@ -14,7 +14,6 @@ import top.kwind.rlfz.rbac.service.UserService;
 import javax.annotation.Resource;
 
 /**
- *
  * @author xagu
  * Created on 2020/6/6
  * Email:xagu_qc@foxmail.com
@@ -58,6 +57,7 @@ public class UserController extends BaseController {
 
     /**
      * 更新用户数据
+     *
      * @param user
      * @return
      */
@@ -70,6 +70,7 @@ public class UserController extends BaseController {
 
     /**
      * 批量删除用户
+     *
      * @param ids 用户的id，逗号分隔
      * @return
      */
@@ -78,6 +79,15 @@ public class UserController extends BaseController {
         return decide(userService.batchDelete(ids.split(",")),
                 MessageConstants.REMOVE_SUCCESS,
                 MessageConstants.REMOVE_FAILURE);
+    }
+
+    /**
+     * 获取当前登录用户的所有菜单
+     * @return
+     */
+    @GetMapping("menus")
+    public ResuTable getLoginUserPowers() {
+        return dataTable(userService.getLoginUserPowers());
     }
 
 }

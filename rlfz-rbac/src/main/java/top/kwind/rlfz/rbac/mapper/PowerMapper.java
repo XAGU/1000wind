@@ -43,4 +43,11 @@ public interface PowerMapper {
      * @return
      */
     int batchDelete(String[] ids);
+
+    /**
+     * 根据用户的id查询用户的权限
+     * @param userId
+     * @return
+     */
+    List<Power> selectPowerByUserId(Integer userId);
 }

@@ -13,7 +13,7 @@ public class ResuMenu {
     /**
      * 菜单编号
      * */
-    private String id;
+    private Integer id;
 
     /**
      * 标题
@@ -23,7 +23,7 @@ public class ResuMenu {
     /**
      * 菜单类型
      * */
-    private String type;
+    private Integer type;
 
     /**
      * 图标
@@ -36,6 +36,6 @@ public class ResuMenu {
     private String href;
 
 
-    private String parentId;
+    private Integer parentId;
 
 }
