@@ -114,4 +114,21 @@
             </if>
         </where>
     </select>
+    <select id="selectPowerByUserId" resultMap="BaseResultMap">
+        select `power`.power_id,
+               `power`.power_name,
+               `power`.power_type,
+               `power`.power_code,
+               `power`.power_url,
+               `power`.parent_id,
+               `power`.icon,
+               `power`.sort,
+               `power`.enable
+        from user
+                     left join user_role on user.user_id = user_role.user_id
+                     left join role on user_role.role_id = role.role_id
+                     left join role_power on role.role_id = role_power.role_id
+                     left join power on role_power.power_id = power.power_id
+        where user.user_id = #{userId,jdbcType=INTEGER}
+    </select>
 </mapper>

@@ -3,6 +3,9 @@ package top.kwind.rlfz.rbac.pojo;
 import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -66,6 +69,7 @@ public class User implements Serializable {
      * 用户的用户组
      */
     transient private Integer roleId;
+
 
     private static final long serialVersionUID = 1L;
 }
