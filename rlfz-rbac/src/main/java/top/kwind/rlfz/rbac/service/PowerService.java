@@ -1,7 +1,5 @@
 package top.kwind.rlfz.rbac.service;
 
-import java.util.List;
-
 import com.github.pagehelper.PageInfo;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.rbac.pojo.Power;

@@ -8,6 +8,7 @@ import top.kwind.rlfz.common.web.domain.ResuBean;
 import top.kwind.rlfz.common.web.domain.ResuTable;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.rbac.pojo.Power;
+import top.kwind.rlfz.rbac.pojo.RolePower;
 import top.kwind.rlfz.rbac.service.PowerService;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ public class PowerController extends BaseController {
 
     @Resource
     private PowerService powerService;
+
 
     /**
      * 分页查询所有，参数条件可选
@@ -53,6 +55,7 @@ public class PowerController extends BaseController {
 
     /**
      * 更新权限信息
+     *
      * @param power
      * @return
      */
@@ -65,6 +68,7 @@ public class PowerController extends BaseController {
 
     /**
      * 批量删除权限
+     *
      * @param ids 权限的id，逗号分隔
      * @return
      */

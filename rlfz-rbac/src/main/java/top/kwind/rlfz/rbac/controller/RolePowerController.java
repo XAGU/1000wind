@@ -1,11 +1,10 @@
 package top.kwind.rlfz.rbac.controller;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.kwind.rlfz.common.constant.MessageConstants;
 import top.kwind.rlfz.common.web.base.BaseController;
 import top.kwind.rlfz.common.web.domain.ResuBean;
+import top.kwind.rlfz.common.web.domain.ResuTable;
 import top.kwind.rlfz.rbac.service.RolePowerService;
 
 import javax.annotation.Resource;
@@ -24,9 +23,9 @@ public class RolePowerController extends BaseController {
     private RolePowerService rolePowerService;
 
 
-
     /**
      * 修改角色所拥有的权限
+     *
      * @param roleId
      * @param powerIds
      * @return
@@ -36,5 +35,15 @@ public class RolePowerController extends BaseController {
         return decide(rolePowerService.updatePowerOfRole(roleId, powerIds.split(",")),
                 MessageConstants.UPDATE_SUCCESS,
                 MessageConstants.UPDATE_FAILURE);
+    }
+
+    /**
+     * Describe: 获取角色权限
+     * Param RoleId
+     * Return ResuTree
+     */
+    @GetMapping("/{roleId}")
+    public ResuTable getRolePower(@PathVariable("roleId") Integer roleId) {
+        return dataTable(rolePowerService.getPowerOfRole(roleId));
     }
 }
