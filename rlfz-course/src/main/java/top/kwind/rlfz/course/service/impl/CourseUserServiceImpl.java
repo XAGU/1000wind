@@ -2,10 +2,16 @@ package top.kwind.rlfz.course.service.impl;
 
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+
+import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
 import top.kwind.rlfz.course.mapper.CourseUserMapper;
 import top.kwind.rlfz.course.service.CourseUserService;
-/**     
+import top.kwind.rlfz.rbac.pojo.User;
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -17,34 +23,24 @@ public class CourseUserServiceImpl implements CourseUserService{
     @Resource
     private CourseUserMapper courseUserMapper;
 
+
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return courseUserMapper.deleteByPrimaryKey(id);
+    public List<Course> getCoursesByUserId(Integer id) {
+        return courseUserMapper.selectCoursesByUser(id);
     }
 
     @Override
-    public int insert(CourseUser record) {
-        return courseUserMapper.insert(record);
+    public List<User> getUsersByCourseId(Integer id) {
+        return courseUserMapper.selectUsersByCourse(id);
     }
 
     @Override
-    public int insertSelective(CourseUser record) {
-        return courseUserMapper.insertSelective(record);
+    public Boolean insertUserCourse(CourseUser courseUser) {
+        return courseUserMapper.insertUserCourse(courseUser) > 0;
     }
 
     @Override
-    public CourseUser selectByPrimaryKey(Integer id) {
-        return courseUserMapper.selectByPrimaryKey(id);
+    public Boolean deleteUserCourse(CourseUser courseUser) {
+        return courseUserMapper.deleteUserCourse(courseUser) > 0;
     }
-
-    @Override
-    public int updateByPrimaryKeySelective(CourseUser record) {
-        return courseUserMapper.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public int updateByPrimaryKey(CourseUser record) {
-        return courseUserMapper.updateByPrimaryKey(record);
-    }
-
 }

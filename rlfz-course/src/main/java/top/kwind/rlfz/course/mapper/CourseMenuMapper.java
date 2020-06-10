@@ -45,4 +45,11 @@ public interface CourseMenuMapper {
      * @return
      */
     int deleteMenus(String[] ids);
+
+    /**
+     * 根据课程id查询目录
+     * @param id
+     * @return
+     */
+    List<CourseMenu> selectByCourseId(Integer id);
 }

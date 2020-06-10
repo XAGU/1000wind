@@ -3,6 +3,8 @@ package top.kwind.rlfz.course.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import top.kwind.rlfz.course.pojo.CourseVideo;
 
+import java.util.List;
+
 /**     
   * 
   * @Author:         HXC
@@ -11,15 +13,39 @@ import top.kwind.rlfz.course.pojo.CourseVideo;
 
 @Mapper
 public interface CourseVideoMapper {
-    int deleteByPrimaryKey(Integer vedioId);
 
-    int insert(CourseVideo record);
+    /**
+     * 根据条件chaxun
+     * @param courseVideo
+     * @return
+     */
+    List<CourseVideo> selectByAll(CourseVideo courseVideo);
 
-    int insertSelective(CourseVideo record);
+    /**
+     * 新增视频
+     * @param courseVideo
+     * @return
+     */
+    int insertVideo(CourseVideo courseVideo);
 
-    CourseVideo selectByPrimaryKey(Integer vedioId);
+    /**
+     * 修改视频
+     * @param courseVideo
+     * @return
+     */
+    int updateVideo(CourseVideo courseVideo);
 
-    int updateByPrimaryKeySelective(CourseVideo record);
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    int deleteVideos(String[] ids);
 
-    int updateByPrimaryKey(CourseVideo record);
+    /**
+     * 根据目录id查视频
+     * @param id
+     * @return
+     */
+    List<CourseVideo> selectByMenuId(Integer id);
 }

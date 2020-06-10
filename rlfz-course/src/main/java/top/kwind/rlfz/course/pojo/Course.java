@@ -52,6 +52,11 @@ public class Course implements Serializable {
     private SubjectType subjectType;
 
     /**
+     * 创建者id
+     */
+    private Integer createrId;
+
+    /**
     * 	创建时间
     */
     private Date createTime;

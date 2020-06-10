@@ -14,22 +14,22 @@ public class CourseVideo implements Serializable {
     /**
     * 视频id
     */
-    private Integer vedioId;
+    private Integer videoId;
 
     /**
     * 	视频名
     */
-    private String vedioName;
+    private String videoName;
 
     /**
     * 	视频url
     */
-    private String vedioUrl;
+    private String videoUrl;
 
     /**
-    * 	目录id
+    * 	目录,多个视频对应一个目录
     */
-    private Integer menuId;
+    private CourseMenu courseMenu;
 
     private static final long serialVersionUID = 1L;
 
