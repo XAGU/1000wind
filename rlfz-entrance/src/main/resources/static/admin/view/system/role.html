@@ -163,7 +163,16 @@
                 title: '授权',
                 shade: 0.1,
                 area: ['320px', '400px'],
-                content: 'operate/editRolePower.html'
+                content: 'operate/editRolePower.html',
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
         };
 
@@ -174,15 +183,15 @@
                 shade: 0.1,
                 area: ['500px', '400px'],
                 content: 'operate/editRole.html',
-				success: function(layero, index) {
-					var iframe = window['layui-layer-iframe' + index];
-					iframe.child(obj.data);
-					setTimeout(function() {
-						layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-							tips: 3
-						});
-					}, 500)
-				}
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
         };
 

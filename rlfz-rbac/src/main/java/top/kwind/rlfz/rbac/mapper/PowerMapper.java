@@ -3,6 +3,7 @@ package top.kwind.rlfz.rbac.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import top.kwind.rlfz.rbac.pojo.Power;
+import top.kwind.rlfz.rbac.vo.PowerOfRole;
 
 import java.util.List;
 
@@ -17,6 +18,14 @@ public interface PowerMapper {
      * @return
      */
     List<Power> selectByAll(Power power);
+
+
+    /**
+     * 查询所有,参数可选
+     *
+     * @return
+     */
+    List<PowerOfRole> selectPowerOfRole();
 
     /**
      * 插入权限
@@ -50,4 +59,5 @@ public interface PowerMapper {
      * @return
      */
     List<Power> selectPowerByUserId(Integer userId);
+
 }

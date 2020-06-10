@@ -2,13 +2,13 @@ package top.kwind.rlfz.rbac.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
+import top.kwind.rlfz.rbac.mapper.RolePowerMapper;
 import top.kwind.rlfz.rbac.pojo.Power;
 import top.kwind.rlfz.rbac.mapper.PowerMapper;
 import top.kwind.rlfz.rbac.service.PowerService;
@@ -18,6 +18,7 @@ public class PowerServiceImpl implements PowerService {
 
     @Resource
     private PowerMapper powerMapper;
+
 
     @Override
     public PageInfo<Power> selectByAll(PageDomain pageDomain, Power power) {
@@ -39,5 +40,7 @@ public class PowerServiceImpl implements PowerService {
     public Boolean batchDelete(String[] split) {
         return powerMapper.batchDelete(split) > 0;
     }
+
+
 }
 
