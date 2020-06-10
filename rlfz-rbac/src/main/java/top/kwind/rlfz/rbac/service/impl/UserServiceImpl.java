@@ -6,17 +6,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import top.kwind.rlfz.common.tools.DateUtils;
+import top.kwind.rlfz.common.tools.security.SecurityUtil;
+import top.kwind.rlfz.common.web.domain.ResuMenu;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.rbac.mapper.UserRoleMapper;
+import top.kwind.rlfz.rbac.pojo.Power;
 import top.kwind.rlfz.rbac.pojo.User;
 import top.kwind.rlfz.rbac.mapper.UserMapper;
 import top.kwind.rlfz.rbac.pojo.UserRole;
 import top.kwind.rlfz.rbac.service.UserService;
+import top.kwind.rlfz.rbac.vo.UserWithPower;
 
 /**
  * @author xagu
@@ -74,6 +79,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean batchDelete(String[] ids) {
         return userMapper.batchDelete(ids) > 0;
+    }
+
+    @Override
+    public List<ResuMenu> getLoginUserPowers() {
+        UserWithPower loginUser = (UserWithPower) SecurityUtil.getLoginUser();
+        if (loginUser == null || loginUser.getPowers() == null) {
+            return null;
+        }
+        List<Power> powers = loginUser.getPowers();
+        List<ResuMenu> resuMenus = new ArrayList<>();
+        for (Power power : powers) {
+            ResuMenu resuMenu = new ResuMenu();
+            resuMenu.setId(power.getPowerId());
+            resuMenu.setTitle(power.getPowerName());
+            resuMenu.setHref(power.getPowerUrl());
+            resuMenu.setIcon(power.getIcon());
+            resuMenu.setType(power.getPowerType());
+            resuMenu.setParentId(power.getParentId());
+            resuMenus.add(resuMenu);
+        }
+        return resuMenus;
     }
 }
 

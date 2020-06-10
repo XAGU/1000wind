@@ -1,8 +1,11 @@
 package top.kwind.rlfz.rbac.service;
 
 import com.github.pagehelper.PageInfo;
+import top.kwind.rlfz.common.web.domain.ResuMenu;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.rbac.pojo.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -36,5 +39,12 @@ public interface UserService {
      * @return
      */
     Boolean batchDelete(String[] split);
+
+    /**
+     *
+     * 获取当前登录用户的所有菜单
+     * @return
+     */
+    List<ResuMenu> getLoginUserPowers();
 }
 

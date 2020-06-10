@@ -38,5 +38,18 @@ public interface UserMapper {
     int updateById(@Param("user") User user);
 
 
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
     int batchDelete(String[] ids);
+
+    /**
+     * 根据用户名查询用户
+     * @param username
+     * @return
+     */
+    User loadUserByUsername(@Param("username")String username);
+
 }
