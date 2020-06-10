@@ -11,6 +11,8 @@ import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.service.CourseService;
 
+import java.util.List;
+
 /**
  * @Author: HXC
  * @CreateDate: 2020/6/7 12:26
@@ -34,6 +36,16 @@ public class CourseController extends BaseController {
         return pageTable(coursePageInfo.getList(),coursePageInfo.getTotal());
     }
 
+    /**
+     * 根据科目Id查询课程
+     * @param id
+     * @return
+     */
+    @GetMapping("/courseOfSubject/{id}")
+    public ResuTable selectBySubjectId(@PathVariable Integer id){
+        List<Course> courseList = courseService.selectBySubjectId(id);
+        return dataTable(courseList);
+    }
     /**
      * 插入新的课程
      * @param course

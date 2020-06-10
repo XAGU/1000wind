@@ -9,7 +9,10 @@ import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.mapper.CourseMenuMapper;
 import top.kwind.rlfz.course.pojo.CourseMenu;
 import top.kwind.rlfz.course.service.CourseMenuService;
-/**     
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -40,6 +43,11 @@ public class CourseMenuServiceImpl implements CourseMenuService{
     @Override
     public Boolean deleteMenus(String[] ids) {
         return courseMenuMapper.deleteMenus(ids) > 0;
+    }
+
+    @Override
+    public List<CourseMenu> selectByCourseId(Integer id) {
+        return courseMenuMapper.selectByCourseId(id);
     }
 
 }

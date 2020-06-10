@@ -2,6 +2,7 @@ package top.kwind.rlfz.course.pojo;
 
 import java.io.Serializable;
 import lombok.Data;
+import top.kwind.rlfz.rbac.pojo.User;
 
 /**     
   * 
@@ -11,10 +12,6 @@ import lombok.Data;
 
 @Data
 public class CourseUser implements Serializable {
-    /**
-    * 关联id
-    */
-    private Integer id;
 
     /**
     * 课程id

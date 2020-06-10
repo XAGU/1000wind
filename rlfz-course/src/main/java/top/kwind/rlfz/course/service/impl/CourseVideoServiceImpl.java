@@ -1,11 +1,19 @@
 package top.kwind.rlfz.course.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.mapper.CourseVideoMapper;
 import top.kwind.rlfz.course.pojo.CourseVideo;
 import top.kwind.rlfz.course.service.CourseVideoService;
-/**     
+
+import java.util.List;
+
+/**
   * 
   * @Author:         HXC
   * @CreateDate:     2020/6/7 11:43
@@ -14,37 +22,32 @@ import top.kwind.rlfz.course.service.CourseVideoService;
 @Service
 public class CourseVideoServiceImpl implements CourseVideoService{
 
-    @Resource
-    private CourseVideoMapper courseVideoMapper;
+    @Autowired
+    CourseVideoMapper courseVideoMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer vedioId) {
-        return courseVideoMapper.deleteByPrimaryKey(vedioId);
+    public PageInfo<CourseVideo> selectByAll(PageDomain pageDomain, CourseVideo courseVideo) {
+        PageHelper.startPage(pageDomain.getPage(),pageDomain.getLimit());
+        return new PageInfo<>(courseVideoMapper.selectByAll(courseVideo));
     }
 
     @Override
-    public int insert(CourseVideo record) {
-        return courseVideoMapper.insert(record);
+    public Boolean insertVideo(CourseVideo courseVideo) {
+        return courseVideoMapper.insertVideo(courseVideo) > 0;
     }
 
     @Override
-    public int insertSelective(CourseVideo record) {
-        return courseVideoMapper.insertSelective(record);
+    public Boolean updateVideo(CourseVideo courseVideo) {
+        return courseVideoMapper.updateVideo(courseVideo) > 0;
     }
 
     @Override
-    public CourseVideo selectByPrimaryKey(Integer vedioId) {
-        return courseVideoMapper.selectByPrimaryKey(vedioId);
+    public Boolean deleteVideos(String[] ids) {
+        return courseVideoMapper.deleteVideos(ids) > 0;
     }
 
     @Override
-    public int updateByPrimaryKeySelective(CourseVideo record) {
-        return courseVideoMapper.updateByPrimaryKeySelective(record);
+    public List<CourseVideo> selectByMenuId(Integer id) {
+        return courseVideoMapper.selectByMenuId(id);
     }
-
-    @Override
-    public int updateByPrimaryKey(CourseVideo record) {
-        return courseVideoMapper.updateByPrimaryKey(record);
-    }
-
 }
