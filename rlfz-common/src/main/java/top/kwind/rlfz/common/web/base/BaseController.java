@@ -27,7 +27,7 @@ public class BaseController {
      * Param data
      * Return 表格分页数据
      * */
-    public static ResuTable pageTable(Object data, long count){
+    protected static ResuTable pageTable(Object data, long count){
         ResuTable resuTable = new ResuTable();
         resuTable.setData(data);
         resuTable.setCount(count);
