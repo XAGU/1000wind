@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>top.1000wind.rlfz</groupId>
-            <artifactId>rlfz-sign</artifactId>
+            <artifactId>rlfz-practical</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
