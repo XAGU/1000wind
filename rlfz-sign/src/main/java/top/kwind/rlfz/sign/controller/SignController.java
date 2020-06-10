@@ -3,6 +3,7 @@ package top.kwind.rlfz.sign.controller;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 import top.kwind.rlfz.common.constant.MessageConstants;
+import top.kwind.rlfz.common.web.base.BaseController;
 import top.kwind.rlfz.common.web.domain.ResuBean;
 import top.kwind.rlfz.common.web.domain.ResuTable;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
@@ -11,12 +12,10 @@ import top.kwind.rlfz.sign.service.SignService;
 
 import javax.annotation.Resource;
 
-import static top.kwind.rlfz.common.web.base.BaseController.decide;
-import static top.kwind.rlfz.common.web.base.BaseController.pageTable;
 
 @RestController
 @RequestMapping("api/sign")
-public class SignController {
+public class SignController extends BaseController {
 
     @Resource
     private SignService signService;
