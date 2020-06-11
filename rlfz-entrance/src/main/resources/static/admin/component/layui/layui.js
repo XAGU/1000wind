@@ -60,7 +60,9 @@
 			echarts:"extends/echarts",
 			echartsTheme:"extends/echartsTheme",
 			formSelects:'extends/formSelects-v4',
-			treetable:"extends/treetable",
+			treeTable:"extends/treetable",
+			iconPicker:"extends/iconPicker",
+			dtree:"extends/dtree",
 			"layui.all": "../layui.all"
 		};
 	o.prototype.cache = n, o.prototype.define = function(e, t) {

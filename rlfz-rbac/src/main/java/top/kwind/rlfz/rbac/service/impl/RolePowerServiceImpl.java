@@ -6,15 +6,21 @@ import javax.annotation.Resource;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
+import top.kwind.rlfz.rbac.mapper.PowerMapper;
+import top.kwind.rlfz.rbac.pojo.Power;
 import top.kwind.rlfz.rbac.pojo.RolePower;
 import top.kwind.rlfz.rbac.mapper.RolePowerMapper;
 import top.kwind.rlfz.rbac.service.RolePowerService;
+import top.kwind.rlfz.rbac.vo.PowerOfRole;
 
 @Service("rolePowerService")
 public class RolePowerServiceImpl implements RolePowerService {
 
     @Resource
     private RolePowerMapper rolePowerMapper;
+
+    @Resource
+    private PowerMapper powerMapper;
 
 
     @Override
@@ -29,5 +35,19 @@ public class RolePowerServiceImpl implements RolePowerService {
         }
         //将新权限加进去
         return rolePowerMapper.addPowerToRole(roleId, split) > 0;
+    }
+
+    @Override
+    public List<PowerOfRole> getPowerOfRole(Integer roleId) {
+        List<PowerOfRole> allPower = powerMapper.selectPowerOfRole();
+        List<RolePower> myPower = rolePowerMapper.selectRolePowerByRoleId(roleId);
+        allPower.forEach(power -> {
+            myPower.forEach(sysRolePower -> {
+                if (sysRolePower.getPowerId().equals(power.getPowerId())) {
+                    power.setCheckArr("1");
+                }
+            });
+        });
+        return allPower;
     }
 }

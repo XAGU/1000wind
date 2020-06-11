@@ -19,7 +19,7 @@
                 <div class="layui-input-inline">
                     <input type="text" name="username" placeholder="" class="layui-input">
                 </div>
-                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="power-query">
                     <i class="layui-icon layui-icon-search"></i>
                     查询
                 </button>
@@ -42,10 +42,6 @@
         <i class="layui-icon layui-icon-add-1"></i>
         新增
     </button>
-    <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
-        <i class="layui-icon layui-icon-delete"></i>
-        删除
-    </button>
 </script>
 
 <script type="text/html" id="power-bar">
@@ -66,8 +62,9 @@
 </script>
 
 <script type="text/html" id="power-enable">
-    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="user-enable"
-           checked="{{ d.id == 10003 ? 'true' : 'false' }}">
+    <input type="checkbox" name="enable" value="{{d.powerId}}" lay-skin="switch" lay-text="启用|禁用"
+           lay-filter="power-enable"
+           {{ d.enable=== 1 ? 'checked' : '' }}>
 </script>
 
 <script type="text/html" id="icon">
@@ -78,64 +75,81 @@
 
 <script src="../../component/layui/layui.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery', 'treetable'], function () {
-        let table = layui.table;
-        let form = layui.form;
+    layui.use(['table', 'form', 'jquery', 'treeTable'], function () {
+        var form = layui.form;
         let $ = layui.jquery;
-        let treetable = layui.treetable;
+        let treeTable = layui.treeTable;
 
-        let MODULE_PATH = "operate/";
 
-        window.render = function () {
-            treetable.render({
-                treeColIndex: 1,
-                treeSpid: 0,
-                treeIdName: 'powerId',
-                treePidName: 'parentId',
-                skin: 'line',
-                method: 'post',
-                treeDefaultClose: true,
-                toolbar: '#power-toolbar',
-                elem: '#power-table',
-                url: '/api/power?page=1&limit=999',
-                page: false,
-                response: {
-                    statusCode: 200 //获取数据成功状态吗
-                },
-                cols: [
-                    [
-                        {type: 'checkbox'},
-                        {field: 'powerName', minWidth: 200, title: '权限名称'},
-                        {field: 'icon', title: '图标', templet: '#icon'},
-                        {field: 'powerType', title: '权限类型', templet: '#power-type'},
-                        {field: 'enable', title: '是否可用', templet: '#power-enable'},
-                        {field: 'sort', title: '排序'},
-                        {title: '操作', templet: '#power-bar', width: 150, align: 'center'}
-                    ]
+        window.powerTable = treeTable.render({
+            tree: {
+                iconIndex: 0,           // 折叠图标显示在第几列
+                isPidData: true,        // 是否是id、pid形式数据
+                idName: 'powerId',  // id字段名称
+                pidName: 'parentId',     // pid字段名称
+                arrowType: 'arrow2'
+            },
+            skin: 'row',
+            method: 'get',
+            treeDefaultClose: false,
+            toolbar: '#power-toolbar',
+            elem: '#power-table',
+            url: '/api/power?page=1&limit=999',
+            page: false,
+            cols: [
+                [
+                    {field: 'powerName', minWidth: 200, title: '权限名称'},
+                    {field: 'icon', title: '图标', templet: '#icon'},
+                    {field: 'powerType', title: '权限类型', templet: '#power-type'},
+                    {field: 'enable', title: '是否可用', templet: '#power-enable'},
+                    {field: 'sort', title: '排序'},
+                    {title: '操作', templet: '#power-bar', width: 150, align: 'center'}
                 ]
-            });
-        }
+            ],
+            done: function () {
+                powerTable.expandAll();
+            }
+        });
 
-        render();
 
-        table.on('tool(power-table)', function (obj) {
+        treeTable.on('tool(power-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
                 window.edit(obj);
             }
-        })
+        });
 
 
-        table.on('toolbar(power-table)', function (obj) {
+        treeTable.on('toolbar(power-table)', function (obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
                 window.refresh();
-            } else if (obj.event === 'batchRemove') {
-                window.batchRemove(obj);
             }
         });
+
+
+        form.on('switch(power-enable)', function (obj) {
+            var loading = layer.load();
+
+            $.ajax({
+                url: '/api/power',
+                data: {powerId: this.value, enable: obj.elem.checked ? '1' : '0'},
+                dataType: 'json',
+                type: 'put',
+                success: function (result) {
+                    layer.close(loading);
+                    if (result.success) {
+                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon: 2, time: 1000});
+                    }
+                }
+            })
+        });
+
 
         window.add = function () {
             layer.open({
@@ -143,9 +157,9 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['450px', '500px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'operate/addPower.html'
             });
-        }
+        };
 
         window.edit = function (obj) {
             layer.open({
@@ -153,15 +167,24 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['450px', '500px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'operate/editPower.html',
+                success: function(layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function() {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
-        }
+        };
         window.remove = function (obj) {
             layer.confirm('确定要删除该权限', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                let loading = layer.load();
+                var loading = layer.load();
                 $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['powerId'],
+                    url: "/api/power/" + obj.data['powerId'],
                     dataType: 'json',
                     type: 'delete',
                     success: function (result) {

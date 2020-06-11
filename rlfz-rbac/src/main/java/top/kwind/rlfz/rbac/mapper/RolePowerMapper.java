@@ -26,5 +26,7 @@ public interface RolePowerMapper {
     int addPowerToRole(@Param("roleId") Integer roleId,@Param("powerIds") String[] split);
 
 
+    List<RolePower> selectRolePowerByRoleId(Integer roleId);
+
 
 }
