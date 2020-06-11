@@ -22,11 +22,11 @@
                 </div>
                 <label class="layui-form-label">电话</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="phoneNum"  placeholder="" class="layui-input">
+                    <input type="text" name="phoneNum" placeholder="" class="layui-input">
                 </div>
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="email"  placeholder="" class="layui-input">
+                    <input type="text" name="email" placeholder="" class="layui-input">
                 </div>
                 <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
                     <i class="layui-icon layui-icon-search"></i>
@@ -68,7 +68,7 @@
 <script type="text/html" id="user-enable">
     <input type="checkbox" name="enable" value="{{d.userId}}" lay-skin="switch" lay-text="启用|禁用"
            lay-filter="user-enable"
-           {{ d.enable === 1 ? 'checked' : '' }}>
+           {{ d.enable=== 1 ? 'checked' : '' }}>
 </script>
 
 
@@ -170,8 +170,17 @@
                 type: 2,
                 title: '修改',
                 shade: 0.1,
-                area: ['500px', '400px'],
-                content: 'operate/editUser.html'
+                area: ['500px', '700px'],
+                content: 'operate/editUser.html',
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
         };
 

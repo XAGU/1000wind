@@ -46,6 +46,9 @@
             <if test="powerCode != null and powerCode != ''">
                 power_code = #{powerCode,jdbcType=VARCHAR},
             </if>
+            <if test="powerUrl != null and powerUrl != ''">
+                power_url = #{powerUrl,jdbcType=VARCHAR},
+            </if>
             <if test="parentId != null">
                 parent_id = #{parentId,jdbcType=INTEGER},
             </if>
