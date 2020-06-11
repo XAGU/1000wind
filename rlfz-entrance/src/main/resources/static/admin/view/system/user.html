@@ -117,19 +117,19 @@
 
         table.on('tool(user-table)', function (obj) {
             if (obj.event === 'remove') {
-                window.remove(obj);
+                remove(obj);
             } else if (obj.event === 'edit') {
-                window.edit(obj);
+                edit(obj);
             }
         });
 
         table.on('toolbar(user-table)', function (obj) {
             if (obj.event === 'add') {
-                window.add();
+                add();
             } else if (obj.event === 'refresh') {
-                window.refresh();
+                refresh();
             } else if (obj.event === 'batchRemove') {
-                window.batchRemove(obj);
+                batchRemove(obj);
             }
         });
 
@@ -155,7 +155,7 @@
             })
         });
 
-        window.add = function () {
+        add = function () {
             layer.open({
                 type: 2,
                 title: '新增',
@@ -165,7 +165,7 @@
             });
         };
 
-        window.edit = function (obj) {
+        edit = function (obj) {
             layer.open({
                 type: 2,
                 title: '修改',
@@ -184,7 +184,7 @@
             });
         };
 
-        window.remove = function (obj) {
+        remove = function (obj) {
             layer.confirm('确定要删除该用户', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
@@ -206,7 +206,7 @@
             });
         };
 
-        window.batchRemove = function (obj) {
+        batchRemove = function (obj) {
             let data = table.checkStatus(obj.config.id).data;
             if (data.length === 0) {
                 layer.msg("未选中数据", {icon: 3, time: 1000});
@@ -238,7 +238,7 @@
             });
         };
 
-        window.refresh = function (param) {
+        refresh = function (param) {
             table.reload('user-table');
         }
     })
