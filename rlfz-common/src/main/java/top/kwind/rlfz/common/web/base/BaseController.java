@@ -14,7 +14,7 @@ public class BaseController {
      * Param data
      * Return 表格数据
      * */
-    protected  static ResuTable dataTable(Object data){
+    protected static ResuTable dataTable(Object data){
         ResuTable resuTable = new ResuTable();
         resuTable.setCode(200);
         resuTable.setCount(0L);
@@ -27,7 +27,7 @@ public class BaseController {
      * Param data
      * Return 表格分页数据
      * */
-    protected  static ResuTable pageTable(Object data,long count){
+    protected static ResuTable pageTable(Object data, long count){
         ResuTable resuTable = new ResuTable();
         resuTable.setData(data);
         resuTable.setCount(count);

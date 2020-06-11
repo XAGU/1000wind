@@ -1,4 +1,4 @@
-layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pearFrame'], function(exports) {
+layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pearNotice','pearFrame'], function(exports) {
 	"use strict";
 
 	var $ = layui.jquery,
@@ -6,6 +6,7 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 		element = layui.element,
 		pearTab = layui.pearTab,
 		pearMenu = layui.pearMenu,
+		pearNotice = layui.pearNotice,
 		pearFrame = layui.pearFrame;
 
 	var bodyFrame;
@@ -15,6 +16,7 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 	var pearAdmin = new function() {
 
 		this.render = function(option) {
+			this.themeRender(option);
 
 			this.menuRender(option);
 
@@ -22,7 +24,8 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 
 			this.keepLoad(option);
 
-			this.themeRender(option);
+
+			this.noticeRender(option);
 
 		}
 
@@ -34,7 +37,7 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 				async: true, //数据形式
 				theme: option.theme,
 				height: '100%',
-				control: option.control ? 'control' : false, // control 
+				control: option.control ? 'control' : false, // control
 				defaultMenu: 1,
 				defaultOpen: 0, //默认打开菜单
 				accordion: true,
@@ -45,6 +48,33 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 
 
 		}
+
+		this.noticeRender = function(option){
+
+			var option = {
+				elem: 'headerNotice',
+				url: option.notice,
+				height: '250px',
+				click: function(id, title, context, form) {
+					layer.open({
+						type: 1 ,
+						title: '消息',   //标题
+						area: ['390px', '330px'],   //宽高
+						shade: 0.4,   //遮罩透明度
+						content: "<div style='background-color:whitesmoke;'><div class='layui-card'><div class='layui-card-body'>发件人 : "+form+"</div><div class='layui-card-header' >标题 : "+title+"</div><div class='layui-card-body' >内容 : "+context+"</div></div></div>",//支持获取DOM元素
+						btn: ['确认'], //按钮组
+						scrollbar: false ,//屏蔽浏览器滚动条
+						yes: function(index){//layer.msg('yes');    //点击确定回调
+							layer.close(index);
+							showToast();
+						}
+					});
+				}
+			}
+
+			pearNotice.render(option);
+		}
+
 
 		this.bodyRender = function(option) {
 
@@ -169,6 +199,14 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 
 			// 自 定 义 加 载 配 色
 			style += '#preloader{background-color:' + color + '!important;}';
+
+			// 自 定 义 样 式 选 择 边 框 配 色
+			style += '.pearone-color .color-content li.layui-this:after, .pearone-color .color-content li:hover:after {border: ' + color + ' 2px solid!important;}';
+
+			style += '.layui-nav .layui-nav-child dd a:hover{background-color: ' + color + ' !important;color:white !important;}';
+
+			style += '.loader:after {background-color: ' + color + ' !important}';
+
 
 			// 自 定 义 滚 动 条 样 式
 
@@ -340,8 +378,11 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 
 	$("body").on("click", ".setting", function() {
 
+		//拿到当前的菜单
+		var menu = localStorage.getItem("theme-menu");
+
 		var bgColorHtml =
-			'<li class="layui-this" data-select-bgcolor="dark-theme">' +
+			'<li ' + (menu === "dark-theme" ? 'class="layui-this"' : '') + ' data-select-bgcolor="dark-theme">' +
 			'<a href="javascript:;" data-skin="skin-blue" style="" class="clearfix full-opacity-hover">' +
 			'<div><span style="display:block; width: 20%; float: left; height: 12px; background: #28333E;"></span><span style="display:block; width: 80%; float: left; height: 12px; background: white;"></span></div>' +
 			'<div><span style="display:block; width: 20%; float: left; height: 40px; background: #28333E;"></span><span style="display:block; width: 80%; float: left; height: 40px; background: #f4f5f7;"></span></div>' +
@@ -350,7 +391,7 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 
 
 		bgColorHtml +=
-			'<li  data-select-bgcolor="light-theme">' +
+			'<li ' + (menu === "light-theme" ? 'class="layui-this"' : '') + ' data-select-bgcolor="light-theme">' +
 			'<a href="javascript:;" data-skin="skin-blue" style="" class="clearfix full-opacity-hover">' +
 			'<div><span style="display:block; width: 20%; float: left; height: 12px; background: white;"></span><span style="display:block; width: 80%; float: left; height: 12px; background: white;"></span></div>' +
 			'<div><span style="display:block; width: 20%; float: left; height: 40px; background: white;"></span><span style="display:block; width: 80%; float: left; height: 40px; background: #f4f5f7;"></span></div>' +
@@ -403,6 +444,19 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 			move: false,
 			content: html,
 			success: function(layero, index) {
+
+				//初始化颜色选择器的状态
+				$(".select-color-item").removeClass("layui-icon")
+					.removeClass("layui-icon-ok");
+
+				var color = localStorage.getItem("theme-color");
+
+				$(".select-color-item").each(function () {
+					if ($(this).css("background-color") === color) {
+						$(this).addClass("layui-icon").addClass("layui-icon-ok");
+					}
+				});
+
 				$('#layui-layer-shade' + index).click(function() {
 					var $layero = $('#layui-layer' + index);
 					$layero.animate({
@@ -415,6 +469,6 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
 		});
 	}
 
- 
+
 	exports('pearAdmin', pearAdmin);
 })
