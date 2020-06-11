@@ -77,7 +77,7 @@
         let treeTable = layui.treeTable;
 
 
-        window.powerTable = treeTable.render({
+        powerTable = treeTable.render({
             tree: {
                 iconIndex: 0,           // 折叠图标显示在第几列
                 isPidData: true,        // 是否是id、pid形式数据
@@ -110,23 +110,23 @@
 
         treeTable.on('tool(power-table)', function (obj) {
             if (obj.event === 'remove') {
-                window.remove(obj);
+                remove(obj);
             } else if (obj.event === 'edit') {
-                window.edit(obj);
+                edit(obj);
             }
         });
 
 
         treeTable.on('toolbar(power-table)', function (obj) {
             if (obj.event === 'add') {
-                window.add();
+                add();
             } else if (obj.event === 'refresh') {
-                window.refresh();
+                refresh();
             }
         });
 
         form.on('submit(power-query)', function (data) {
-            treeTable.reload('power-table', {where: data.field});
+            reload('power-table', {where: data.field});
             return false;
         });
 
@@ -152,7 +152,7 @@
         });
 
 
-        window.add = function () {
+        add = function () {
             layer.open({
                 type: 2,
                 title: '新增',
@@ -162,7 +162,7 @@
             });
         };
 
-        window.edit = function (obj) {
+        edit = function (obj) {
             layer.open({
                 type: 2,
                 title: '修改',
@@ -180,7 +180,7 @@
                 }
             });
         };
-        window.remove = function (obj) {
+        remove = function (obj) {
             layer.confirm('确定要删除该权限', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 var loading = layer.load();
