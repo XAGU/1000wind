@@ -6,10 +6,9 @@ import java.util.Date;
 import org.apache.ibatis.annotations.Mapper;
 import top.kwind.rlfz.course.pojo.Course;
 
-/**     
-  * 
-  * @Author:         HXC
-  * @CreateDate:     2020/6/7 11:43
+/**
+ * @Author: HXC
+ * @CreateDate: 2020/6/7 11:43
  */
 
 @Mapper
@@ -57,8 +56,15 @@ public interface CourseMapper {
 
     /**
      * 根据科目Id查询课程
+     *
      * @param id
      * @return
      */
     List<Course> selectBySubjectId(Integer id);
+
+    /**
+     * 查询课程所有信息，包括科目信息
+     * @return
+     */
+    List<Course> selectAllContainSubject();
 }
