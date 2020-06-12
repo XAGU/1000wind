@@ -21,7 +21,7 @@
         and subject_id = #{subjectId,jdbcType=INTEGER}
       </if>
       <if test="subjectName != null and subjectName != ''">
-        and subject_name like concat('%',#{subjectName,jdbcType=VARCHAR})
+        and subject_name like concat('%',#{subjectName,jdbcType=VARCHAR},'%')
       </if>
     </where>
   </select>

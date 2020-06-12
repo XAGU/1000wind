@@ -18,8 +18,8 @@
                 </div>
                 <label class="layui-form-label">课程类型</label>
                 <div class="layui-input-inline">
-                    <select name="courseStyle" lay-verify="">
-                        <option value="">请选择</option>
+                    <select name="courseStyle" lay-verify="" lay-search>
+                        <option value="-1"></option>
                         <option value="0">实习实训</option>
                         <option value="1">实战进阶</option>
                         <option value="2">技术公开课</option>
@@ -28,7 +28,7 @@
                 </div>
                 <label class="layui-form-label" >科目</label>
                 <div class="layui-input-inline">
-                    <select name="subjectType" id="otype" lay-search class="SelectSubjectType" >
+                    <select name="subjectType.subjectId" id="otype" lay-search>
                         <option value="">请选择</option>
                     </select>
                 </div>
@@ -165,12 +165,11 @@
                 type: 2,
                 title: '新增',
                 shade: 0.1,
-                area: ['700px', '600px'],
+                area: ['50%', '90%'],
                 content: 'operate/addCourse.html',
                 success: function (layero, index) {
                     form.render('select');
                     var iframe = window['layui-layer-iframe' + index];
-                    iframe.child(obj.data);
                     setTimeout(function () {
                         layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3
@@ -260,11 +259,11 @@
         //右上刷新表格按钮
         window.refresh = function (param) {
             table.reload('course-table');
-        }
+        };
 
         //加载科目类型的下拉菜单
         $.ajax({
-            url: '/api/subject?page=1&limit=10',
+            url: '/api/subject?page=1&limit=999',
             dataType: 'json',
             type: 'get',
             success: function (data) {

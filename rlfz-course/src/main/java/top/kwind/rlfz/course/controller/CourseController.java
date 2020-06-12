@@ -42,8 +42,8 @@ public class CourseController extends BaseController {
      * @return
      */
     @GetMapping("/containSubject")
-    public ResuTable selectAllContainSubject(PageDomain pageDomain){
-        PageInfo<Course> coursePageInfo = courseService.selectAllContainSubject(pageDomain);
+    public ResuTable selectAllContainSubject(PageDomain pageDomain,Course course){
+        PageInfo<Course> coursePageInfo = courseService.selectAllContainSubject(pageDomain,course);
         return pageTable(coursePageInfo.getList(),coursePageInfo.getTotal());
     }
 

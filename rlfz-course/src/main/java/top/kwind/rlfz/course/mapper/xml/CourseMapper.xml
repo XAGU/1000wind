@@ -38,7 +38,7 @@
             <if test="courseName != null and courseName != ''">
                 and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
             </if>
-            <if test="courseStyle != null">
+            <if test="courseStyle != null and courseStyle != -1">
                 and course_style = #{courseStyle,jdbcType=TINYINT}
             </if>
             <if test="subjectType != null and subjectType.subjectId != null">
@@ -70,6 +70,20 @@
         from course
         inner join subject_type st on course.subject_id = st.subject_id
         inner join user u on course.creater_id=u.user_id
+        <where>
+            <if test="courseId != null">
+                and course_id = #{courseId,jdbcType=INTEGER}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="courseStyle != null and courseStyle != -1">
+                and course_style = #{courseStyle,jdbcType=TINYINT}
+            </if>
+            <if test="subjectType != null and subjectType.subjectId != null">
+                and course.subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 
     <insert id="insertCourse" useGeneratedKeys="true" keyProperty="courseId">
@@ -105,6 +119,9 @@
             </if>
             <if test="courseInfo != null and courseInfo != ''">
                 course_info = #{courseInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="courseCover != null and courseCover != ''">
+                course_cover = #{courseCover,jdbcType=VARCHAR},
             </if>
             <if test="courseStyle != null">
                 course_style = #{courseStyle,jdbcType=TINYINT},
