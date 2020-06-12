@@ -37,6 +37,17 @@ public class CourseController extends BaseController {
     }
 
     /**
+     * 查询所有课程
+     * @param pageDomain
+     * @return
+     */
+    @GetMapping("/containSubject")
+    public ResuTable selectAllContainSubject(PageDomain pageDomain){
+        PageInfo<Course> coursePageInfo = courseService.selectAllContainSubject(pageDomain);
+        return pageTable(coursePageInfo.getList(),coursePageInfo.getTotal());
+    }
+
+    /**
      * 根据科目Id查询课程
      * @param id
      * @return

@@ -80,4 +80,10 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.selectBySubjectId(id);
     }
 
+    @Override
+    public PageInfo<Course> selectAllContainSubject(PageDomain pageDomain) {
+        PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
+        return new PageInfo<Course>(courseMapper.selectAllContainSubject());
+    }
+
 }

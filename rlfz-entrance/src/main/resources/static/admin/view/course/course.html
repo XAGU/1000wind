@@ -69,18 +69,26 @@
     </button>
 </script>
 
-<!--<script type="text/html" id="course-enable">
-    <input type="checkbox" name="enable" value="{{d.courseId}}" lay-skin="switch" lay-text="启用|禁用"
-           lay-filter="course-enable"
-           {{ d.enable === 1 ? 'checked' : '' }}>
-</script>-->
-
 <script type="text/html" id="course-createTime">
     {{layui.util.toDateString(d.regTime, 'yyyy-MM-dd HH:mm:ss')}}
 </script>
 
 <script type="text/html" id="course-teacher">
-    <a href="#" style="color: #5FB878" onclick="teacher()" value="{{ d.createrId}}" lay-text="{{ d.teacher.realName}}"></a>
+    <a href="#" style="color: #5FB878" lay-event="teacherInfo" value="{{ d.createrId}}">{{ d.teacher.realName}}</a>
+</script>
+
+<script type="text/html" id="course-style">
+    <p>
+        {{#  if(d.courseStyle === 0){ }}
+        实习实训
+        {{#  }if(d.courseStyle === 1){ }}
+        实战进阶
+        {{#  }if(d.courseStyle === 2){ }}
+        技术公开课
+        {{#  }if(d.courseStyle === 3){ }}
+        毕设指导
+        {{# } }}
+    </p>
 </script>
 
 <script src="../../component/layui/layui.js"></script>
@@ -95,14 +103,14 @@
         let cols = [
             [
                 {type: 'checkbox'},
-                {title: '课程名', field: 'courseName', align: 'center', width: 100},
+                {title: '课程名', field: 'courseName', align: 'center'},
                 {title: '介绍', field: 'courseInfo', align: 'center'},
                 {title: '封面', field: 'courseCover', align: 'center'},
                 {title: '点击量', field: 'courseClick', align: 'center', sort: true},
-                {title: '课程类型', field: 'courseStyle', align: 'center'},
-                {title: '所属科目', field: 'subjectType.subjectName', align: 'center'},
-                {title: '老师信息', field: 'teacher.realName', align: 'center',templet:"#{course-teacher}"},
-                {title: '创建时间', field: 'createTime', align: 'center', templet: '#course-createTime',sort: true},
+                {title: '课程类型', field: 'courseStyle', align: 'center', templet:'#course-style'},
+                {title: '所属科目', field: 'subjectType', align: 'center', templet:'<p>{{ d.subjectType.subjectName}}</p>'},
+                {title: '老师信息', field: 'realName', align: 'center',templet:'#course-teacher'},
+                {title: '创建时间', field: 'createTime', align: 'center', templet: '#course-createTime',sort: true, width: 180},
                 {title: '操作', toolbar: '#course-bar', align: 'center', width: 130}
             ]
         ];
@@ -130,6 +138,8 @@
                 window.remove(obj);
             } else if (obj.event === 'edit') {
                 window.edit(obj);
+            }else if (obj.event === 'teacherInfo'){
+                teacher(obj);
             }
         });
 
@@ -149,31 +159,24 @@
             return false;
         });
 
-        // form.on('switch(course-enable)', function (obj) {
-        //     layer.tips(obj.elem.checked ? '解冻用户' : '冻结用户', obj.othis);
-        //     $.ajax({
-        //         url: '/api/course',
-        //         data: {courseId: this.value, enable: obj.elem.checked ? '1' : '0'},
-        //         dataType: 'json',
-        //         type: 'put',
-        //         success: function (result) {
-        //             if (result.success) {
-        //                 layer.msg(result.msg, {icon: 1, time: 1000});
-        //             } else {
-        //                 layer.msg(result.msg, {icon: 2, time: 1000});
-        //             }
-        //         }
-        //     })
-        // });
-
         //新增弹层
         window.add = function () {
             layer.open({
                 type: 2,
                 title: '新增',
                 shade: 0.1,
-                area: ['500px', '700px'],
-                content: 'operate/addcourse.html'
+                area: ['700px', '600px'],
+                content: 'operate/addCourse.html',
+                success: function (layero, index) {
+                    form.render('select');
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
         };
 
@@ -183,8 +186,17 @@
                 type: 2,
                 title: '修改',
                 shade: 0.1,
-                area: ['500px', '400px'],
-                content: 'operate/editcourse.html'
+                area: ['50%', '90%'],
+                content: 'operate/editCourse.html',
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
         };
 
@@ -249,31 +261,42 @@
         window.refresh = function (param) {
             table.reload('course-table');
         }
-    });
 
+        //加载科目类型的下拉菜单
+        $.ajax({
+            url: '/api/subject?page=1&limit=10',
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                $.each(data.data, function (index, item) {
+                    $('#otype').append(new Option(item.subjectName, item.subjectId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");
+            }
+        });
 
-    //加载科目类型的下拉菜单
-    $.ajax({
-        url: '/api/subject?page=1&limit=10',
-        dataType: 'json',
-        type: 'get',
-        success: function (data) {
-            $.each(data.data, function (index, item) {
-                $('#otype').append(new Option(item.subjectName, item.subjectId));// 下拉菜单里添加元素
+        function teacher(obj) {
+            layer.open({
+                type: 2,
+                title: '老师信息',
+                shade: 0.1,
+                area: ['25%', '80%'],
+                content: 'operate/teacherInfo.html',
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
-            layui.form.render("select");
         }
     });
 
-    function teacher() {
-        layer.open({
-            type: 2,
-            title: '老师信息',
-            shade: 0.1,
-            area: ['350px', '500px'],
-            content: 'operate/teacherInfo.html'
-        });
-    }
+
+
 </script>
 
 </body>
