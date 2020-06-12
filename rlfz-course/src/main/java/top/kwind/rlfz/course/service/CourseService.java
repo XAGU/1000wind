@@ -55,4 +55,11 @@ public interface CourseService{
          * @return
          */
         List<Course> selectBySubjectId(Integer id);
-    }
+
+        /**
+         * 查询所有课程，包括科目信息
+         * @param pageDomain
+         * @return
+         */
+        PageInfo<Course> selectAllContainSubject(PageDomain pageDomain);
+}

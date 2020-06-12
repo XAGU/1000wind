@@ -3,6 +3,7 @@ package top.kwind.rlfz.course.pojo;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import top.kwind.rlfz.rbac.pojo.User;
 
 /**     
   * 
@@ -60,6 +61,11 @@ public class Course implements Serializable {
     * 	创建时间
     */
     private Date createTime;
+
+    /**
+     * 对应的老师
+     */
+    private User teacher;
 
     private static final long serialVersionUID = 1L;
 }

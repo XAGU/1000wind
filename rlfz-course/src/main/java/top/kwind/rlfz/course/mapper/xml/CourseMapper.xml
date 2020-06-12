@@ -12,6 +12,8 @@
         <result column="course_style" jdbcType="TINYINT" property="courseStyle"/>
         <result column="creater_id" jdbcType="INTEGER" property="createrId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <association property="subjectType" resultMap="top.kwind.rlfz.course.mapper.SubjectTypeMapper.BaseResultMap"/>
+        <association property="teacher" resultMap="top.kwind.rlfz.rbac.mapper.UserMapper.BaseResultMap"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
@@ -46,6 +48,28 @@
                 and creater_id = #{createrId,jdbcType=INTEGER}
             </if>
         </where>
+    </select>
+
+    <select id="selectAllContainSubject" resultMap="BaseResultMap">
+        select course_id,
+        course_name,
+        course_info,
+        course_cover,
+        course_click,
+        course_style,
+        creater_id,
+        create_time,
+        st.subject_id,
+        st.subject_name,
+        u.user_id,
+        u.real_name,
+        u.head_img,
+        u.email,
+        u.`desc`,
+        u.phone_num
+        from course
+        inner join subject_type st on course.subject_id = st.subject_id
+        inner join user u on course.creater_id=u.user_id
     </select>
 
     <insert id="insertCourse" useGeneratedKeys="true" keyProperty="courseId">
