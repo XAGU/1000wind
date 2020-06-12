@@ -22,11 +22,11 @@
                 </div>
                 <label class="layui-form-label">电话</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="phoneNum"  placeholder="" class="layui-input">
+                    <input type="text" name="phoneNum" placeholder="" class="layui-input">
                 </div>
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="email"  placeholder="" class="layui-input">
+                    <input type="text" name="email" placeholder="" class="layui-input">
                 </div>
                 <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
                     <i class="layui-icon layui-icon-search"></i>
@@ -68,7 +68,7 @@
 <script type="text/html" id="user-enable">
     <input type="checkbox" name="enable" value="{{d.userId}}" lay-skin="switch" lay-text="启用|禁用"
            lay-filter="user-enable"
-           {{ d.enable === 1 ? 'checked' : '' }}>
+           {{ d.enable=== 1 ? 'checked' : '' }}>
 </script>
 
 
@@ -117,19 +117,19 @@
 
         table.on('tool(user-table)', function (obj) {
             if (obj.event === 'remove') {
-                window.remove(obj);
+                remove(obj);
             } else if (obj.event === 'edit') {
-                window.edit(obj);
+                edit(obj);
             }
         });
 
         table.on('toolbar(user-table)', function (obj) {
             if (obj.event === 'add') {
-                window.add();
+                add();
             } else if (obj.event === 'refresh') {
-                window.refresh();
+                refresh();
             } else if (obj.event === 'batchRemove') {
-                window.batchRemove(obj);
+                batchRemove(obj);
             }
         });
 
@@ -155,7 +155,7 @@
             })
         });
 
-        window.add = function () {
+        add = function () {
             layer.open({
                 type: 2,
                 title: '新增',
@@ -165,17 +165,26 @@
             });
         };
 
-        window.edit = function (obj) {
+        edit = function (obj) {
             layer.open({
                 type: 2,
                 title: '修改',
                 shade: 0.1,
-                area: ['500px', '400px'],
-                content: 'operate/editUser.html'
+                area: ['500px', '700px'],
+                content: 'operate/editUser.html',
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
             });
         };
 
-        window.remove = function (obj) {
+        remove = function (obj) {
             layer.confirm('确定要删除该用户', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
@@ -197,7 +206,7 @@
             });
         };
 
-        window.batchRemove = function (obj) {
+        batchRemove = function (obj) {
             let data = table.checkStatus(obj.config.id).data;
             if (data.length === 0) {
                 layer.msg("未选中数据", {icon: 3, time: 1000});
@@ -229,7 +238,7 @@
             });
         };
 
-        window.refresh = function (param) {
+        refresh = function (param) {
             table.reload('user-table');
         }
     })

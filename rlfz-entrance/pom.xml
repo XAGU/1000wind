@@ -37,6 +37,16 @@
             <artifactId>rlfz-sign</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>top.1000wind.rlfz</groupId>
+            <artifactId>rlfz-fileupload</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>top.1000wind.rlfz</groupId>
+            <artifactId>rlfz-practical</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 

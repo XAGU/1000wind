@@ -29,6 +29,8 @@
         <module>rlfz-practical</module>
         <!--签到相关-->
         <module>rlfz-sign</module>
+        <!--文件上传-->
+        <module>rlfz-fileupload</module>
     </modules>
 
 
