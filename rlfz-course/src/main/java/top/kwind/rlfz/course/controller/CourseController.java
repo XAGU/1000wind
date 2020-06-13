@@ -57,6 +57,13 @@ public class CourseController extends BaseController {
         List<Course> courseList = courseService.selectBySubjectId(id);
         return dataTable(courseList);
     }
+
+    @GetMapping("/courseOrderByClick")
+    public ResuTable selectOrderByClick(PageDomain pageDomain){
+        PageInfo<Course> coursePageInfo = courseService.selectOrderByClick(pageDomain);
+        return pageTable(coursePageInfo.getList(),coursePageInfo.getTotal());
+    }
+
     /**
      * 插入新的课程
      * @param course

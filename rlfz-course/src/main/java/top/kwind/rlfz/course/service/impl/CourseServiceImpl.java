@@ -86,4 +86,10 @@ public class CourseServiceImpl implements CourseService {
         return new PageInfo<Course>(courseMapper.selectAllContainSubject(course));
     }
 
+    @Override
+    public PageInfo<Course> selectOrderByClick(PageDomain pageDomain) {
+        PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
+        return new PageInfo<Course>(courseMapper.selectOrderByClick());
+    }
+
 }
