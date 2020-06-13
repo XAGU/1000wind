@@ -1,6 +1,8 @@
 package top.kwind.rlfz.course.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 
 /**     
@@ -30,6 +32,11 @@ public class CourseVideo implements Serializable {
     * 	目录,多个视频对应一个目录
     */
     private CourseMenu courseMenu;
+
+    /**
+     * 	创建时间
+     */
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 

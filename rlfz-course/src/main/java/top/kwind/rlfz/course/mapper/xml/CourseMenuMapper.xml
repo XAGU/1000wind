@@ -6,6 +6,7 @@
     <!--@Table course_menu-->
     <id column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+      <association property="course" resultMap="top.kwind.rlfz.course.mapper.CourseMapper.BaseResultMap"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -14,8 +15,16 @@
 
   <select id="selectByAll" resultMap="BaseResultMap">
     select menu_id,
-           menu_name
-    from course_menu
+           menu_name,
+           c.course_id,
+           c.course_name,
+           c.course_cover,
+           c.course_style,
+           c.create_time,
+           c.course_info,
+           c.course_click
+    from course_menu cm
+    inner join course c on cm.course_id = c.course_id
     <where>
       <if test="menuId != null">
         and menu_id =#{menuId,jdbcType=INTEGER}
@@ -24,7 +33,10 @@
         and menu_name like concat('%',#{menuName,jdbcType=VARCHAR},'%')
       </if>
       <if test="course != null and course.courseId != null">
-        and course_id = #{course.courseId,jdbcType=INTEGER}
+        and cm.course_id = #{course.courseId,jdbcType=INTEGER}
+      </if>
+      <if test="course != null and course.courseName != null and course.courseName != ''">
+          and c.course_name like concat('%',#{course.courseName,jdbcType=VARCHAR},'%')
       </if>
     </where>
   </select>

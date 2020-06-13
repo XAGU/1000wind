@@ -7,18 +7,23 @@
     <id column="video_id" jdbcType="INTEGER" property="videoId" />
     <result column="video_name" jdbcType="VARCHAR" property="videoName" />
     <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <association property="courseMenu" resultMap="top.kwind.rlfz.course.mapper.CourseMenuMapper.BaseResultMap"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    video_id, video_name, video_url, menu_id
+    video_id, video_name, video_url, menu_id,create_time
   </sql>
 
     <select id="selectByAll" resultMap="BaseResultMap">
       select video_id,
       video_name,
       video_url,
-      menu_id
-      from course_video
+      create_time,
+      cv.menu_id,
+      cm.menu_name
+      from course_video cv
+      inner join course_menu cm on cv.menu_id = cm.menu_id
       <where>
         <if test="videoId != null">
           and video_id = #{videoId,jdbcType=INTEGER}
@@ -27,7 +32,7 @@
           and video_name like concat('%',#{videoName,jdbcType=VARCHAR},'%')
         </if>
         <if test="courseMenu != null and courseMenu.menuId != null">
-          and menu_id = #{courseMenu.menuId,jdbcType=INTEGER}
+          and cv.menu_id = #{courseMenu.menuId,jdbcType=INTEGER}
         </if>
       </where>
     </select>
@@ -37,13 +42,15 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       video_name,
       video_url,
-      menu_id
+      menu_id,
+      create_time
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
       #{videoName,jdbcType=VARCHAR},
       #{videoUrl,jdbcType=VARCHAR},
-      #{courseMenu.menuId,jdbcType=INTEGER}
+      #{courseMenu.menuId,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}
     </trim>
   </insert>
 
@@ -74,7 +81,8 @@
     select video_id,
            video_name,
            video_url,
-           menu_id
+           menu_id,
+           create_time
     from course_video where menu_id = #{id,jdbcType=INTEGER}
   </select>
 </mapper>
