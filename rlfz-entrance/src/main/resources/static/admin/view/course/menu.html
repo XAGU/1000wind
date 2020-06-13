@@ -59,7 +59,7 @@
 
 
 <script type="text/html" id="menu-course">
-    <a href="#" style="color: #5FB878" lay-event="courseInfo" value="{{ d.course.courseId}}">{{ d.course.courseName}}>></a>
+    <a href="#" style="color: #5FB878" lay-event="courseInfo" value="{{ d.course.courseId}}">{{ d.course.courseName}} >></a>
 </script>
 
 
@@ -131,8 +131,8 @@
                 type: 2,
                 title: '新增',
                 shade: 0.1,
-                area: ['50%', '90%'],
-                content: 'operate/addmenu.html',
+                area: ['35%', '70%'],
+                content: 'operate/addMenu.html',
                 success: function (layero, index) {
                     form.render('select');
                     var iframe = window['layui-layer-iframe' + index];
@@ -151,8 +151,8 @@
                 type: 2,
                 title: '修改',
                 shade: 0.1,
-                area: ['50%', '90%'],
-                content: 'operate/editmenu.html',
+                area: ['35%', '70%'],
+                content: 'operate/editMenu.html',
                 success: function (layero, index) {
                     var iframe = window['layui-layer-iframe' + index];
                     iframe.child(obj.data);
@@ -232,8 +232,9 @@
                 type: 2,
                 title: '课程信息',
                 shade: 0.1,
-                area: ['35%', '80%'],
+                area: ['28%', '85%'],
                 content: 'operate/menu_courseInfo.html',
+                shadeClose:true,
                 success: function (layero, index) {
                     var iframe = window['layui-layer-iframe' + index];
                     iframe.child(obj.data);

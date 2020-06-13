@@ -74,7 +74,7 @@
 </script>
 
 <script type="text/html" id="course-teacher">
-    <a href="#" style="color: #5FB878" lay-event="teacherInfo" value="{{ d.createrId}}">{{ d.teacher.realName}}</a>
+    <a href="#" style="color: #5FB878" lay-event="teacherInfo" value="{{ d.createrId}}">{{ d.teacher.realName}} >></a>
 </script>
 
 <script type="text/html" id="course-style">
@@ -281,6 +281,7 @@
                 shade: 0.1,
                 area: ['25%', '80%'],
                 content: 'operate/teacherInfo.html',
+                shadeClose:true,
                 success: function (layero, index) {
                     var iframe = window['layui-layer-iframe' + index];
                     iframe.child(obj.data);
