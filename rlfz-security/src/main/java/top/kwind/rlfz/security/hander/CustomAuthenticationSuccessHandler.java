@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import top.kwind.rlfz.common.web.domain.ResuBean;
+import top.kwind.rlfz.rbac.pojo.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         resuBean.setSuccess(true);
         resuBean.setMsg("登陆成功");
         resuBean.setCode(200);
+        //得到登录信息
+        User user = (User) authentication.getPrincipal();
+        resuBean.setData(user);
         httpServletResponse.setHeader("Content-type","application/json;charset=UTF-8");
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(objectMapper.writeValueAsString(resuBean));

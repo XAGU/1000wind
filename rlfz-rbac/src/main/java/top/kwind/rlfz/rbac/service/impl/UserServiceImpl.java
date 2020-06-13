@@ -101,5 +101,10 @@ public class UserServiceImpl implements UserService {
         }
         return resuMenus;
     }
+
+    @Override
+    public User getLoginUser() {
+        return (User) SecurityUtil.getLoginUser();
+    }
 }
 

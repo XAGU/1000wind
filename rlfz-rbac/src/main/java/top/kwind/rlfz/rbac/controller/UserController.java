@@ -83,11 +83,26 @@ public class UserController extends BaseController {
 
     /**
      * 获取当前登录用户的所有菜单
+     *
      * @return
      */
     @GetMapping("menus")
     public ResuTable getLoginUserPowers() {
         return dataTable(userService.getLoginUserPowers());
+    }
+
+    /**
+     * 获取当前登录用户个人信息
+     *
+     * @return
+     */
+    @GetMapping("myself")
+    public ResuBean getLoginUser() {
+        User loginUser = userService.getLoginUser();
+        return decide(loginUser != null,
+                MessageConstants.SELECT_SUCCESS,
+                MessageConstants.SELECT_FAILURE,
+                loginUser);
     }
 
 }

@@ -78,8 +78,8 @@ pagehelper:
 
 logging:
   level:
-    root: info
-    com.xagu.xxb: info
+    root: debug
+    com.xagu.xxb: debug
 ---
 # Tomcat 端口
 server:
