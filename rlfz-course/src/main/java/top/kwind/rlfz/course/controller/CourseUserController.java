@@ -36,6 +36,16 @@ public class CourseUserController extends BaseController {
     }
 
     /**
+     * 查询当前登录学生的课程
+     * @return
+     */
+    @GetMapping("/coursesOfStudent")
+    public ResuTable getCoursesByNowUserId(){
+        List<Course> courseList = courseUserService.getCoursesByNowUserId();
+        return dataTable(courseList);
+    }
+
+    /**
      * 查询某个课程下的所有学生
      * @param id
      * @return

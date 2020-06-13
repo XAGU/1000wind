@@ -23,5 +23,15 @@ public class CourseUser implements Serializable {
     */
     private Integer userId;
 
+    /**
+     * 课程
+     */
+    private Course course;
+
+    /**
+     * 用户
+     */
+    private User user;
+
     private static final long serialVersionUID = 1L;
 }

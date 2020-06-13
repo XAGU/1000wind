@@ -3,6 +3,7 @@ package top.kwind.rlfz.course.service.impl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
+import top.kwind.rlfz.common.tools.security.SecurityUtil;
 import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
 import top.kwind.rlfz.course.mapper.CourseUserMapper;
@@ -42,5 +43,16 @@ public class CourseUserServiceImpl implements CourseUserService{
     @Override
     public Boolean deleteUserCourse(CourseUser courseUser) {
         return courseUserMapper.deleteUserCourse(courseUser) > 0;
+    }
+
+    @Override
+    public List<Course> getCoursesByNowUserId() {
+        User loginUser = (User) SecurityUtil.getLoginUser();
+        if (loginUser != null) {
+            int id = loginUser.getUserId();
+            return courseUserMapper.selectCoursesByUser(id);
+        }else {
+            return null;
+        }
     }
 }
