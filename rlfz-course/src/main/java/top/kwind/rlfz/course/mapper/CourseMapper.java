@@ -67,4 +67,10 @@ public interface CourseMapper {
      * @return
      */
     List<Course> selectAllContainSubject(Course course);
+
+    /**
+     * 查询课程按点击量排序
+     * @return
+     */
+    List<Course> selectOrderByClick();
 }
