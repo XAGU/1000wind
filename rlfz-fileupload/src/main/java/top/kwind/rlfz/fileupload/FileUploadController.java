@@ -39,6 +39,8 @@ public class FileUploadController extends BaseController {
         String contentType = file.getContentType();
         if ("image/jpeg".equals(contentType) || "image/jpg".equals(contentType)) {
             filePath = "/img";
+        }else if ("video/avi".equals(contentType) || "video/mpeg4".equals(contentType) || "video/mp4".equals(contentType)){
+            filePath = "/video";
         }
         String realPath = uploadPath + filePath;
         realPath = URLDecoder.decode(realPath, "UTF-8");

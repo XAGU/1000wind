@@ -14,7 +14,8 @@
         .courseCover .layui-form-label {
             line-height: 150px;
         }
-        .default_img{
+
+        .default_img {
             width: 250px;
             height: 150px;
             margin-left: 35px;
@@ -45,14 +46,18 @@
                     <label class="layui-form-label">课程封面</label>
                     <div class="layui-input-inline default_img">
                         <div class="layui-upload">
-                            <input type="hidden" name="courseCover" value="/upload/img/default_courseCover.jpg" id="courseCover">
+                            <input type="hidden" name="courseCover" value="/upload/img/default_courseCover.jpg"
+                                   id="courseCover">
                             <div class="layui-upload-courseCover">
                                 <img class="layui-upload-img" src="/upload/img/default_courseCover.jpg">
                             </div>
                         </div>
                     </div>
                     <div class="layui-inline upload-btn">
-                        <button type="button" class="layui-btn layui-btn-primary" id="upload_img">上传课程封面</button>
+                        <button type="button" class="layui-btn layui-btn-primary" style="color: #51A351"
+                                id="upload_img">
+                            <i class="layui-icon">&#xe67c;</i>上传封面
+                        </button>
                         <div class="layui-progress upload-progress" lay-filter="upload-progress">
                             <div class="layui-progress-bar" lay-percent="0%"></div>
                         </div>
@@ -61,7 +66,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">课程名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseName" lay-verify="required" autocomplete="off" placeholder="请输入课程名"
+                        <input type="text" name="courseName" lay-verify="required" autocomplete="off"
+                               placeholder="请输入课程名"
                                class="layui-input">
                     </div>
                 </div>
@@ -78,7 +84,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label" >科目</label>
+                    <label class="layui-form-label">科目</label>
                     <div class="layui-input-block">
                         <select name="subjectType.subjectId" id="otype" lay-verify="required" lay-search>
                             <option value="">请选择</option>
@@ -96,7 +102,8 @@
     </div>
     <div class="bottom">
         <div class="button-container">
-            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="course-save">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit=""
+                    lay-filter="course-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
