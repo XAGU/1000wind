@@ -2,15 +2,14 @@ package top.kwind.rlfz.course.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-
+import top.kwind.rlfz.common.tools.DateUtils;
 import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.mapper.CourseVideoMapper;
 import top.kwind.rlfz.course.pojo.CourseVideo;
 import top.kwind.rlfz.course.service.CourseVideoService;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ import java.util.List;
 @Service
 public class CourseVideoServiceImpl implements CourseVideoService{
 
-    @Autowired
+    @Resource
     CourseVideoMapper courseVideoMapper;
 
     @Override
@@ -33,6 +32,8 @@ public class CourseVideoServiceImpl implements CourseVideoService{
 
     @Override
     public Boolean insertVideo(CourseVideo courseVideo) {
+        //设置创建时间为当前时间
+        courseVideo.setCreateTime(DateUtils.getNowDate());
         return courseVideoMapper.insertVideo(courseVideo) > 0;
     }
 

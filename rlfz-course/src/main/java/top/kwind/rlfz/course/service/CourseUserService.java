@@ -41,4 +41,10 @@ public interface CourseUserService{
      * @return
      */
     Boolean deleteUserCourse(CourseUser courseUser);
+
+    /**
+     * 查询当前登录的学生的所有课程
+     * @return
+     */
+    List<Course> getCoursesByNowUserId();
 }
