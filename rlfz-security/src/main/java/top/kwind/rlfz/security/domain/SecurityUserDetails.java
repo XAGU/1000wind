@@ -1,4 +1,5 @@
 package top.kwind.rlfz.security.domain;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import top.kwind.rlfz.rbac.pojo.Power;

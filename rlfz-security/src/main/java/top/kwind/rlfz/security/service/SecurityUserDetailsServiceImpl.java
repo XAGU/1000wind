@@ -32,6 +32,9 @@ public class SecurityUserDetailsServiceImpl implements UserDetailsService {
 
         //拿用户
         User user = userMapper.loadUserByUsername(s);
+        if (user==null){
+            throw new UsernameNotFoundException("用户不存在");
+        }
         SecurityUserDetails securityUserDetails = new SecurityUserDetails();
         if (user != null) {
             List<Power> powers = powerMapper.selectPowerByUserId(user.getUserId());
