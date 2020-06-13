@@ -61,5 +61,5 @@ public interface CourseService{
          * @param pageDomain
          * @return
          */
-        PageInfo<Course> selectAllContainSubject(PageDomain pageDomain);
+        PageInfo<Course> selectAllContainSubject(PageDomain pageDomain,Course course);
 }
