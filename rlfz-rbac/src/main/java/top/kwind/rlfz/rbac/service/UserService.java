@@ -46,5 +46,11 @@ public interface UserService {
      * @return
      */
     List<ResuMenu> getLoginUserPowers();
+
+    /**
+     * 获取当前登录的用户
+     * @return
+     */
+    User getLoginUser();
 }
 
