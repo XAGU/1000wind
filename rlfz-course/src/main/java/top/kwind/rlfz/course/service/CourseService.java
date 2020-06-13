@@ -61,5 +61,11 @@ public interface CourseService{
          * @param pageDomain
          * @return
          */
-        PageInfo<Course> selectAllContainSubject(PageDomain pageDomain);
+        PageInfo<Course> selectAllContainSubject(PageDomain pageDomain,Course course);
+
+        /**
+         * 查询课程按点击量排序
+         * @return
+         */
+        PageInfo<Course> selectOrderByClick(PageDomain pageDomain);
 }
