@@ -68,4 +68,10 @@ public interface CourseService{
          * @return
          */
         PageInfo<Course> selectOrderByClick(PageDomain pageDomain);
+
+        /**
+         * 按创建者查询
+         * @return
+         */
+        PageInfo<Course> selectByCreaterId(PageDomain pageDomain,Course course);
 }

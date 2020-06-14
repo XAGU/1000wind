@@ -19,10 +19,12 @@
     u.real_name,
     u.head_img,
     u.email,
-    u.`desc`
+    u.`desc`,
+    st.subject_name
     from course c
     inner join course_user cu on cu.course_id = c.course_id
     inner join user u on u.user_id = c.creater_id
+    inner join subject_type st on c.subject_id = st.subject_id
     where cu.user_id =#{id}
   </select>
 

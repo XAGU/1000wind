@@ -58,6 +58,23 @@ public class CourseController extends BaseController {
         return dataTable(courseList);
     }
 
+    /**
+     * 根据创建者Id查询课程
+     * @param pageDomain
+     * @param course
+     * @return
+     */
+    @GetMapping("/courseOfCreater")
+    public ResuTable selectByCreaterId(PageDomain pageDomain,Course course){
+        PageInfo<Course> coursePageInfo = courseService.selectByCreaterId(pageDomain,course);
+        return pageTable(coursePageInfo.getList(),coursePageInfo.getTotal());
+    }
+
+    /**
+     * 按点击量排序
+     * @param pageDomain
+     * @return
+     */
     @GetMapping("/courseOrderByClick")
     public ResuTable selectOrderByClick(PageDomain pageDomain){
         PageInfo<Course> coursePageInfo = courseService.selectOrderByClick(pageDomain);
