@@ -58,7 +58,8 @@
 </script>
 
 <script type="text/html" id="video-url">
-    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="videoUrl"><i class="layui-icon layui-icon-video"></i>
+    <button class="layui-btn layui-btn-radius layui-bg-green layui-btn-sm" lay-event="videoUrl"><i
+            class="layui-icon layui-icon-video"></i>
     </button>
 </script>
 
@@ -75,9 +76,22 @@
             [
                 {type: 'checkbox'},
                 {title: '视频名', field: 'videoName', align: 'center'},
-                {title: '所属目录', field: 'courseMenu', align: 'center', templet:'<p>{{ d.courseMenu.menuName}}</p>'},
-                {title: '创建时间', field: 'createTime', align: 'center', templet: '#video-createTime',sort: true, width: 180},
-                {title: '视频预览', field: 'videoUrl', align: 'center', templet:'#video-url'},
+                {
+                    title: '所属目录',
+                    field: 'courseMenu',
+                    align: 'center',
+                    templet: '<p>{{ d.courseMenu.menuName}}</p>',
+                    width: 200
+                },
+                {
+                    title: '创建时间',
+                    field: 'createTime',
+                    align: 'center',
+                    templet: '#video-createTime',
+                    sort: true,
+                    width: 180
+                },
+                {title: '视频预览', field: 'videoUrl', align: 'center', templet: '#video-url', width: 120},
                 {title: '操作', toolbar: '#video-bar', align: 'center', width: 130}
             ]
         ];
@@ -105,6 +119,8 @@
                 window.remove(obj);
             } else if (obj.event === 'edit') {
                 window.edit(obj);
+            } else if (obj.event === 'videoUrl') {
+                window.videoInfo(obj);
             }
         });
 
@@ -225,10 +241,27 @@
         window.refresh = function (param) {
             table.reload('video-table');
         };
+
+        //修改弹层
+        window.videoInfo = function (obj) {
+            layer.open({
+                type: 2,
+                title: '预览',
+                shade: 0.1,
+                area: ['70%', '86.3%'],
+                content: obj.data.videoUrl,
+                shadeClose: true,
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
+            });
+        };
     });
-
-
-
 </script>
 
 </body>
