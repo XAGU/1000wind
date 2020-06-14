@@ -73,4 +73,11 @@ public interface CourseMapper {
      * @return
      */
     List<Course> selectOrderByClick();
+
+    /**
+     * 根据创建者查课程
+     * @param course
+     * @return
+     */
+    List<Course> selectByCreaterId(Course course);
 }

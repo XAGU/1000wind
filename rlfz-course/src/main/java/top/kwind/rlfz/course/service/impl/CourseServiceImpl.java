@@ -32,6 +32,7 @@ public class CourseServiceImpl implements CourseService {
     @Resource
     private CourseMapper courseMapper;
 
+
     @Override
     public PageInfo<Course> selectByAll(PageDomain pageDomain, Course course) {
 
@@ -90,6 +91,18 @@ public class CourseServiceImpl implements CourseService {
     public PageInfo<Course> selectOrderByClick(PageDomain pageDomain) {
         PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
         return new PageInfo<Course>(courseMapper.selectOrderByClick());
+    }
+
+    @Override
+    public PageInfo<Course> selectByCreaterId(PageDomain pageDomain,Course course) {
+        PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
+         User loginUser= (User) SecurityUtil.getLoginUser();
+        if (loginUser != null) {
+            course.setCreaterId(loginUser.getUserId());
+            return new PageInfo<Course>(courseMapper.selectByCreaterId(course));
+        }else {
+            return null;
+        }
     }
 
 }

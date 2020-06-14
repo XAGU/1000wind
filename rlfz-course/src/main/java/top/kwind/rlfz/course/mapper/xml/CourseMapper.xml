@@ -36,19 +36,20 @@
                 and course_id = #{courseId,jdbcType=INTEGER}
             </if>
             <if test="courseName != null and courseName != ''">
-                and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
+                  and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
             </if>
             <if test="courseStyle != null and courseStyle != -1">
-                and course_style = #{courseStyle,jdbcType=TINYINT}
+                  and course_style = #{courseStyle,jdbcType=TINYINT}
             </if>
             <if test="subjectType != null and subjectType.subjectId != null">
-                and subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
+                  and subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
             </if>
             <if test="createrId != null">
-                and creater_id = #{createrId,jdbcType=INTEGER}
+                  and creater_id = #{createrId,jdbcType=INTEGER}
             </if>
         </where>
     </select>
+
 
     <select id="selectAllContainSubject" resultMap="BaseResultMap">
         select course_id,
@@ -71,19 +72,19 @@
         inner join subject_type st on course.subject_id = st.subject_id
         inner join user u on course.creater_id=u.user_id
         <where>
-            <if test="courseId != null">
-                and course_id = #{courseId,jdbcType=INTEGER}
-            </if>
-            <if test="courseName != null and courseName != ''">
-                and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
-            </if>
-            <if test="courseStyle != null and courseStyle != -1">
-                and course_style = #{courseStyle,jdbcType=TINYINT}
-            </if>
-            <if test="subjectType != null and subjectType.subjectId != null">
-                and course.subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
-            </if>
-        </where>
+        <if test="courseId != null">
+            and course_id = #{courseId,jdbcType=INTEGER}
+        </if>
+        <if test="courseName != null and courseName != ''">
+            and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="courseStyle != null and courseStyle != -1">
+            and course_style = #{courseStyle,jdbcType=TINYINT}
+        </if>
+        <if test="subjectType != null and subjectType.subjectId != null">
+            and course.subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
+        </if>
+    </where>
     </select>
 
     <insert id="insertCourse" useGeneratedKeys="true" keyProperty="courseId">
@@ -118,15 +119,15 @@
                 course_name = #{courseName,jdbcType=VARCHAR},
             </if>
             <if test="courseInfo != null and courseInfo != ''">
-                course_info = #{courseInfo,jdbcType=VARCHAR},
+                    course_info = #{courseInfo,jdbcType=VARCHAR},
             </if>
             <if test="courseCover != null and courseCover != ''">
-                course_cover = #{courseCover,jdbcType=VARCHAR},
+                    course_cover = #{courseCover,jdbcType=VARCHAR},
             </if>
             <if test="courseStyle != null">
-                course_style = #{courseStyle,jdbcType=TINYINT},
+                    course_style = #{courseStyle,jdbcType=TINYINT},
             </if>
-            <if test="subjectType != null and subjectType.subjectId != null" >
+            <if test="subjectType != null and subjectType.subjectId != null">
                 subject_id = #{subjectType.subjectId,jdbcType=INTEGER},
             </if>
         </set>
@@ -143,20 +144,20 @@
     <update id="updateCourseClick">
         update course
         <set>
-            course_click = course.course_click +1
+            course_click = course.course_click + 1
         </set>
         where course_id=#{courseId,jdbcType=INTEGER}
     </update>
 
     <select id="selectBySubjectId" resultMap="BaseResultMap">
         select course_id,
-        course_name,
-        course_info,
-        course_cover,
-        course_click,
-        course_style,
-        creater_id,
-        create_time
+               course_name,
+               course_info,
+               course_cover,
+               course_click,
+               course_style,
+               creater_id,
+               create_time
         from course
         where subject_id = #{id,jdbcType=INTEGER}
     </select>
@@ -172,5 +173,37 @@
                create_time
         from course
         order by course_click desc
+    </select>
+
+    <select id="selectByCreaterId" resultMap="BaseResultMap">
+        select course_id,
+        course_name,
+        course_info,
+        course_cover,
+        course_click,
+        course_style,
+        creater_id,
+        create_time,
+        st.subject_id,
+        st.subject_name
+        from course
+        inner join subject_type st on course.subject_id = st.subject_id
+        <where>
+            <if test="courseId != null">
+                and course_id = #{courseId,jdbcType=INTEGER}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name like concat('%', #{courseName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="courseStyle != null and courseStyle != -1">
+                and course_style = #{courseStyle,jdbcType=TINYINT}
+            </if>
+            <if test="subjectType != null and subjectType.subjectId != null">
+                and course.subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
+            </if>
+            <if test="createrId != null">
+                and creater_id = #{createrId,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 </mapper>
