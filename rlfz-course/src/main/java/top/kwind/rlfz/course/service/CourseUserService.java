@@ -1,5 +1,7 @@
 package top.kwind.rlfz.course.service;
 
+import com.github.pagehelper.PageInfo;
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
 import top.kwind.rlfz.rbac.pojo.User;
@@ -23,10 +25,10 @@ public interface CourseUserService{
 
     /**
      * 查询某个课程下的所有用户
-     * @param id
+     * @param user
      * @return
      */
-    List<User> getUsersByCourseId(Integer id);
+    PageInfo<User> getUsersByCourseId(PageDomain pageDomain,Integer id, User user);
 
     /**
      * 为用户添加课程
@@ -37,10 +39,10 @@ public interface CourseUserService{
 
     /**
      * 为用户删除课程
-     * @param courseUser
+     * @param cId,sId
      * @return
      */
-    Boolean deleteUserCourse(CourseUser courseUser);
+    Boolean deleteUserCourse(Integer cId,Integer sId);
 
     /**
      * 查询当前登录的学生的所有课程
