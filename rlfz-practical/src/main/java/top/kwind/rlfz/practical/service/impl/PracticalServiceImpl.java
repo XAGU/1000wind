@@ -24,6 +24,12 @@ public class PracticalServiceImpl implements PracticalService{
     }
 
     @Override
+    public PageInfo<Practical> selectAllContainSubject(PageDomain pageDomain,Practical practical) {
+        PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
+        return new PageInfo<Practical>(practicalMapper.selectAllContainSubject(practical));
+    }
+
+    @Override
     public Boolean insertPractical(Practical practical) {
         //判断是否设置了封面，没设置给默认路径值
         if(practical.getPracticalCover() == null && practical.getPracticalCover().equals("")){

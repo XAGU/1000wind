@@ -9,12 +9,19 @@ import java.util.List;
 public interface PracticalService{
 
     /**
-     * 根据条件查询所有实训
+     * 根据条件查询所有实训方案
      * @param pageDomain
      * @param practical
      * @return
      */
     PageInfo<Practical> selectByAll(PageDomain pageDomain, Practical practical);
+
+    /**
+     * 查询所有方案，包括科目信息
+     * @param pageDomain
+     * @return
+     */
+    PageInfo<Practical> selectAllContainSubject(PageDomain pageDomain,Practical practical);
 
     /**
      * 插入新的实训
