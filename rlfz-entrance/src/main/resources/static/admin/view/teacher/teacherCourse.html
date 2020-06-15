@@ -73,28 +73,34 @@
     {{layui.util.toDateString(d.regTime, 'yyyy-MM-dd HH:mm:ss')}}
 </script>
 
-<script type="text/html" id="course-Info">
-    <button class="layui-btn  layui-btn-sm" lay-event="courseInfo">
-        <i class="layui-icon layui-icon-list" style="width: 80px"></i>
+<script type="text/html" id="student-List">
+    <button class="pear-btn pear-btn-md layui-bg-green" lay-event="studentList">
+        &nbsp;&nbsp;<i class="layui-icon layui-icon-user">&nbsp;&nbsp;</i>
     </button>
 </script>
 
-<script type="text/html" id="student-List">
-    <button class="layui-btn layui-bg-blue layui-btn-sm" lay-event="studentList">
-        <i class="layui-icon layui-icon-user" style="width: 80px"></i>
+<script type="text/html" id="course-Info">
+    <button class="pear-btn pear-btn-md layui-bg-orange" lay-event="courseInfo">
+        &nbsp;&nbsp;<i class="layui-icon layui-icon-list">&nbsp;&nbsp;</i>
+    </button>
+</script>
+
+<script type="text/html" id="course-Manage">
+    <button class="pear-btn pear-btn-md layui-bg-black" lay-event="studentManage">
+        &nbsp;&nbsp;<i class="layui-icon layui-icon-util">&nbsp;&nbsp;</i>
     </button>
 </script>
 
 <script type="text/html" id="course-style">
     <p>
         {{#  if(d.courseStyle === 0){ }}
-        实习实训
-        {{#  }if(d.courseStyle === 1){ }}
         实战进阶
-        {{#  }if(d.courseStyle === 2){ }}
+        {{#  }if(d.courseStyle === 1){ }}
         技术公开课
+        {{#  }if(d.courseStyle === 2){ }}
+        毕设项目
         {{#  }if(d.courseStyle === 3){ }}
-        毕设指导
+        毕设公开课
         {{# } }}
     </p>
 </script>
@@ -108,18 +114,17 @@
         let $ = layui.jquery;
         let treeTable = layui.treeTable;
 
-
-
         let cols = [
             [
                 {type: 'checkbox'},
                 {title: '课程名', field: 'courseName', align: 'center'},
                 {title: '课程类型', field: 'courseStyle', align: 'center', templet:'#course-style'},
                 {title: '所属科目', field: 'subjectType', align: 'center', templet:'<p>{{ d.subjectType.subjectName}}</p>'},
-                {title: '点击量', field: 'courseClick', align: 'center', sort: true},
+                {title: '点击量', field: 'courseClick', align: 'center', sort: true, width:120},
                 {title: '创建时间', field: 'createTime', align: 'center', templet: '#course-createTime',sort: true, width: 180},
-                {title: '学生列表', field: 'studentList', align: 'center', templet: '#student-List', width: 120},
-                {title: '课程详情', field: 'courseInfo', align: 'center', templet: '#course-Info', width: 120},
+                {title: '学生列表', field: 'studentList', align: 'center', templet: '#student-List', width: 90},
+                {title: '课程详情', field: 'courseInfo', align: 'center', templet: '#course-Info', width: 90},
+                {title: '管理课程', field: 'courseManage', align: 'center', templet: '#course-Manage', width: 90},
                 {title: '操作', toolbar: '#course-bar', align: 'center', width: 130}
             ]
         ];
@@ -151,6 +156,8 @@
                 courseInfo(obj);
             }else if (obj.event === 'studentList'){
                 studentList(obj);
+            }else if (obj.event === 'studentManage'){
+                studentManage(obj);
             }
         });
 
@@ -177,7 +184,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['50%', '90%'],
-                content: 'operate/addCourse.html',
+                content: '../course/operate/addCourse.html',
                 success: function (layero, index) {
                     form.render('select');
                     var iframe = window['layui-layer-iframe' + index];
@@ -197,7 +204,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['50%', '90%'],
-                content: 'operate/editCourse.html',
+                content: '../course/operate/editCourse.html',
                 success: function (layero, index) {
                     var iframe = window['layui-layer-iframe' + index];
                     iframe.child(obj.data);
@@ -288,7 +295,7 @@
         function courseInfo(obj) {
             layer.open({
                 type: 2,
-                title: '详情',
+                title: '课程详情',
                 shade: 0.1,
                 area: ['25%', '80%'],
                 content: 'operate/courseInfo.html',
@@ -308,10 +315,30 @@
         function studentList(obj) {
             layer.open({
                 type: 2,
-                title: '详情',
+                title: '学生列表',
                 shade: 0.1,
-                area: ['50%', '80%'],
+                area: ['90%', '95%'],
                 content: 'operate/studentList.html',
+                shadeClose:true,
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
+            });
+        }
+
+        function studentManage(obj) {
+            layer.open({
+                type: 2,
+                title: '管理课程',
+                shade: 0.1,
+                area: ['60%', '90%'],
+                content: 'operate/studentManage.html',
                 shadeClose:true,
                 success: function (layero, index) {
                     var iframe = window['layui-layer-iframe' + index];
