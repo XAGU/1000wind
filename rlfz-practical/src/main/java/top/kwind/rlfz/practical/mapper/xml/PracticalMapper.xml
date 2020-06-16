@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.kwind.rlfz.practical.mapper.PracticalMapper">
+ <resultMap id="BaseResultMap2" type="top.kwind.rlfz.practical.pojo.SubjectType">
+    <!--@mbg.generated-->
+    <!--@Table subject_type-->
+    <id column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+  </resultMap>
   <resultMap id="BaseResultMap" type="top.kwind.rlfz.practical.pojo.Practical">
     <!--@mbg.generated-->
     <!--@Table practical-->
     <id column="practical_id" jdbcType="INTEGER" property="practicalId" />
     <result column="practical_name" jdbcType="VARCHAR" property="practicalName" />
     <result column="practical_cover" jdbcType="VARCHAR" property="practicalCover" />
-    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+<!--    <result column="subjectType" jdbcType="INTEGER" property="top.kwind.rlfz.practical.mapper.SubjectTypeMapper.BaseResultMap" />-->
     <result column="practical_url" jdbcType="VARCHAR" property="practicalUrl" />
     <result column="practical_click" jdbcType="INTEGER" property="practicalClick" />
+    <association property="subjectType" resultMap="BaseResultMap2"/>
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -17,26 +24,25 @@
   </sql>
 
   <select id="selectByAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from practical
-    <where>
-        <if test="practicalId != null">
-            and practical_id=#{practicalId,jdbcType=INTEGER}
+        select practical_id,
+        practical_name,
+        practical_cover,
+        practical_url,
+        practical_click
+        from practical
+        <where>
+            <if test="practicalId != null">
+                and practical_id = #{practicalId,jdbcType=INTEGER}
             </if>
-        <if test="practicalName != null and practicalName!=''">
-            and practical_name=#{practicalName,jdbcType=VARCHAR}
-        </if>
-        <if test="subjectId != null">
-            and subject_id=#{subjectId,jdbcType=INTEGER}
-        </if>
-    </where>
-  </select>
+            <if test="practicalName != null and practicalName != ''">
+                and practical_name like concat('%', #{practicalName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="subjectType != null and subjectType.subjectId != null">
+                and subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
 
-  <insert id="insertPractical" parameterType="top.kwind.rlfz.practical.pojo.Practical">
-    insert into practical(practical_name,practical_cover,subject_id,practical_url,practical_click) values
-    (#{practicalName,jdbcType=VARCHAR}, #{practicalCover,jdbcType=VARCHAR},#{subjectId,jdbcType=INTEGER},#{practicalUrl,jdbcType=VARCHAR},#{practicalClick,jdbcType=INTEGER})
-</insert>
 
   <update id="updateByPractical" parameterType="top.kwind.rlfz.practical.pojo.Practical">
     update practical
@@ -47,14 +53,11 @@
       <if test="practicalCover != null and practicalCover!=''">
         practical_cover = #{practicalCover,jdbcType=VARCHAR},
       </if>
-      <if test="subjectId != null">
-        subject_id = #{subjectId,jdbcType=INTEGER},
+      <if test="subjectType != null and subjectType.subjectId != null" >
+                subject_id = #{subjectType.subjectId,jdbcType=INTEGER},
       </if>
       <if test="practicalUrl != null and practicalUrl!=''">
         practical_url = #{practicalUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="practicalClick != null">
-        practical_click = #{practicalClick,jdbcType=INTEGER},
       </if>
     </set>
     where practical_id=#{practicalId,jdbcType=INTEGER}
@@ -77,9 +80,47 @@
     </update>
 
  <select id="selectBySubjectId" resultMap="BaseResultMap">
-    select practical_id,practical_name,practical_cover,subject_id,practical_url,practical_click
+    select practical_id,practical_name,practical_cover,practical_url,practical_click
     from practical
      where subject_id=#{id,jdbcType=INTEGER}
 </select>
 
+<select id="selectAllContainSubject" resultMap="BaseResultMap">
+        select practical_id,
+        practical_name,
+        practical_cover,
+        practical_url,
+        practical_click,
+        st.subject_id,
+        st.subject_name
+        from practical
+        inner join subject_type st on practical.subject_id = st.subject_id
+        <where>
+            <if test="practicalName != null and practicalName != ''">
+            and practical_name like concat('%', #{practicalName,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="subjectType != null and subjectType.subjectId != null">
+                and practical.subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertPractical" useGeneratedKeys="true" keyProperty="practicalId">
+    insert into practical
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            practical_name,
+            practical_cover,
+            practical_url,
+            practical_click,
+            subject_id
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{practicalName,jdbcType=VARCHAR},
+            #{practicalCover,jdbcType=VARCHAR},
+            #{practicalUrl,jdbcType=VARCHAR},
+            #{practicalClick,jdbcType=INTEGER},
+            #{subjectType.subjectId,jdbcType=INTEGER}
+        </trim>
+    </insert>
 </mapper>

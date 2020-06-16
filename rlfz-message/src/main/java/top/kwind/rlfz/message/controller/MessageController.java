@@ -56,6 +56,7 @@ public class MessageController extends BaseController {
      */
     @PutMapping
     public ResuBean updateMessage(Message message){
+        System.out.println(message);
         return decide(messageService.updateMessageById(message),
                 MessageConstants.UPDATE_SUCCESS,
                 MessageConstants.UPDATE_FAILURE);

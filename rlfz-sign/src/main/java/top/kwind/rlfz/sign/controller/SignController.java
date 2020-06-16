@@ -28,6 +28,8 @@ public class SignController extends BaseController {
      */
     @GetMapping
     public ResuTable selectByAll(PageDomain pageDomain, Sign sign){
+        System.out.println(pageDomain);
+        System.out.println(sign);
         PageInfo<Sign> signPageInfo = signService.selectByAll(pageDomain,sign);
         return pageTable(signPageInfo.getList(),signPageInfo.getTotal());
     }
