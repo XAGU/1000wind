@@ -13,19 +13,13 @@
     <!--@mbg.generated-->
     sign_id, course_id, create_time, over_time
   </sql>
-    <select id="selectByAll" resultMap="BaseResultMap">
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="top.kwind.rlfz.sign.pojo.Sign">
         select
         <include refid="Base_Column_List"/>
         from sign
         <where>
             <if test="courseId != null">
-                and course_id like cancat('%',#{courseId,jdbcType=INTEGER},'%')
-            </if>
-            <if test="createTime != null">
-                and create_time like cancat('%',#{createTime,jdbcType=INTEGER},'%')
-            </if>
-            <if test="overTime != null">
-                and over_time like cancat('%',#{overTime,jdbcType=INTEGER},'%')
+                and course_id = #{courseId,jdbcType=INTEGER}
             </if>
         </where>
     </select>
