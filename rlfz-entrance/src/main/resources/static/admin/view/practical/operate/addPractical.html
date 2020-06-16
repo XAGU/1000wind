@@ -45,23 +45,36 @@
                     <label class="layui-form-label">方案封面</label>
                     <div class="layui-input-inline default_img">
                         <div class="layui-upload">
-                            <input type="hidden" name="practicalCover" value="/upload/img/default_practicalCover.jpg" id="practicalCover">
+                            <input type="hidden" name="practicalCover" value="/upload/img/default_practicalCover.jpg"
+                                   id="practicalCover">
                             <div class="layui-upload-practicalCover">
                                 <img class="layui-upload-img" src="/upload/img/default_practicalCover.jpg">
                             </div>
                         </div>
                     </div>
                     <div class="layui-inline upload-btn">
-                        <button type="button" class="layui-btn layui-btn-primary" id="upload_img">上传方案封面</button>
+                        <button type="button" class="layui-btn layui-btn-primary" style="color: #51A351"
+                                id="upload_img">
+                            <i class="layui-icon">&#xe67c;</i>上传封面
+                        </button>
                         <div class="layui-progress upload-progress" lay-filter="upload-progress">
                             <div class="layui-progress-bar" lay-percent="0%"></div>
                         </div>
                     </div>
                 </div>
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">方案名</label>
                     <div class="layui-input-block">
                         <input type="text" name="practicalName" lay-verify="required" autocomplete="off" placeholder="请输入方案名"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">方案链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="practicalUrl" lay-verify="required" autocomplete="off"
+                               placeholder="请输入方案链接"
                                class="layui-input">
                     </div>
                 </div>

@@ -96,6 +96,9 @@
         from practical
         inner join subject_type st on practical.subject_id = st.subject_id
         <where>
+            <if test="practicalName != null and practicalName != ''">
+            and practical_name like concat('%', #{practicalName,jdbcType=VARCHAR}, '%')
+            </if>
             <if test="subjectType != null and subjectType.subjectId != null">
                 and practical.subject_id = #{subjectType.subjectId,jdbcType=INTEGER}
             </if>

@@ -14,7 +14,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">实训方案名</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="practicaName" placeholder="请输入方案名" class="layui-input">
+                    <input type="text" name="practicalName" placeholder="请输入方案名" class="layui-input">
                 </div>
                 <label class="layui-form-label" >科目</label>
                 <div class="layui-input-inline">
@@ -67,11 +67,13 @@
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
+
         let cols = [
             [
                 {type: 'checkbox'},
                 {title: '方案名', field: 'practicalName', align: 'center'},
                 {title: '封面', field: 'practicalCover', align: 'center'},
+                {title: '方案链接', field: 'practicalUrl', align: 'center'},
                 {title: '点击量', field: 'practicalClick', align: 'center', sort: true},
                 {title: '所属科目', field: 'subjectType', align: 'center', templet:'<p>{{ d.subjectType.subjectName}}</p>'},
                 {title: '操作', toolbar: '#practical-bar', align: 'center', width: 130}
@@ -80,7 +82,7 @@
 
         table.render({
             elem: '#practical-table',  //表格id
-            url: '/api/practical',  //异步请求参数
+            url: '/api/practical/containSubject',  //异步请求参数
             page: true,     //开启分页功能
             cols: cols,     //设置表头。值是一个二维数组。方法渲染方式必填
             skin: 'line',   //设定表格外观:line（行边框风格）,row（列边框风格）,nob（无边框风格）
@@ -101,8 +103,6 @@
                 window.remove(obj);
             } else if (obj.event === 'edit') {
                 window.edit(obj);
-            }else if (obj.event === 'teacherInfo'){
-                teacher(obj);
             }
         });
 
@@ -122,9 +122,45 @@
             return false;
         });
 
+        //新增弹层
+        window.add = function () {
+            layer.open({
+                type: 2,
+                title: '新增',
+                shade: 0.1,
+                area: ['50%', '90%'],
+                content: 'operate/addPractical.html',
+                success: function (layero, index) {
+                    form.render('select');
+                    var iframe = window['layui-layer-iframe' + index];
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
+            });
+        };
 
-
-
+        //修改弹层
+        window.edit = function (obj) {
+            layer.open({
+                type: 2,
+                title: '修改',
+                shade: 0.1,
+                area: ['50%', '90%'],
+                content: 'operate/editPractical.html',
+                success: function (layero, index) {
+                    var iframe = window['layui-layer-iframe' + index];
+                    iframe.child(obj.data);
+                    setTimeout(function () {
+                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    }, 500)
+                }
+            });
+        };
 
         //删除
         window.remove = function (obj) {

@@ -73,6 +73,13 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">方案链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="practicalUrl" lay-verify="required" autocomplete="off" placeholder="请输入方案链接"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label" >科目</label>
                     <div class="layui-input-block">
                         <select name="subjectType.subjectId" id="otype" lay-verify="required" lay-search>
@@ -110,6 +117,7 @@
             $("input[name='practicalCover']").val(practical.practicalCover);
             $(".layui-upload-img").attr("src", practical.practicalCover);
             $("input[name='practicalName']").val(practical.practicalName);
+            $("input[name='practicalUrl']").val(practical.practicalUrl);
 
 
             //方案封面图片上传
