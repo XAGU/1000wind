@@ -14,6 +14,13 @@ public interface PracticalMapper {
     List<Practical> selectByAll(Practical practical);
 
     /**
+     * 查询方案所有信息，包括科目信息
+     * @param practical
+     * @return
+     */
+    List<Practical> selectAllContainSubject(Practical practical);
+
+    /**
      * 添加practical
      * @param practical
      * @return
