@@ -14,15 +14,28 @@
     id, user_id, sign_id, sign_time
   </sql>
 
+  <resultMap id="userCourseSign" type="top.kwind.rlfz.sign.pojo.UserCourseSign">
+    <id property="courseId" column="course_id"/>
+    <result property="userId" column="user_id"/>
+    <result property="courseName" column="course_name"/>
+    <result property="signTime" column="sign_time"/>
+  </resultMap>
   
-  <select id="selectByUser" resultMap="BaseResultMap" parameterType="string">
-    select
-    <include refid="Base_Column_List"/>
-    from user_sign
-    where user_id = #{userId,jdbcType=VARCHAR}
+  <select id="selectByUser" resultMap="userCourseSign">
+    select c.course_name,us.sign_time
+    from sign as s,course as c,user_sign as us
+    where c.course_id=s.course_id and s.sign_id=us.sign_id
+    and c.course_id=#{param1,jdbcType=VARCHAR}
+    and us.user_id=#{param2,jdbcType=INTEGER}
   </select>
   <insert id="insertUserSign" parameterType="top.kwind.rlfz.sign.pojo.UserSign">
     insert into user_sign(user_id, sign_id, sign_time) values
     (#{userId,jdbcType=VARCHAR},#{signId,jdbcType=INTEGER},#{signTime,jdbcType=TIMESTAMP})
   </insert>
+    <delete id="batchDelete">
+      delete from user_sign where id in
+      <foreach collection="array" item="id" open="(" close=")" separator=",">
+        #{id,jdbcType=VARCHAR}
+      </foreach>
+    </delete>
 </mapper>
