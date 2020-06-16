@@ -1,6 +1,7 @@
 package top.kwind.rlfz.course.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import top.kwind.rlfz.course.pojo.CourseMenu;
 
 import java.util.List;
@@ -51,5 +52,5 @@ public interface CourseMenuMapper {
      * @param id
      * @return
      */
-    List<CourseMenu> selectByCourseId(Integer id);
+    List<CourseMenu> selectByCourseId(@Param("id") Integer id, @Param("menu") CourseMenu menu);
 }

@@ -46,8 +46,8 @@ public class CourseMenuServiceImpl implements CourseMenuService{
     }
 
     @Override
-    public List<CourseMenu> selectByCourseId(Integer id) {
-        return courseMenuMapper.selectByCourseId(id);
+    public List<CourseMenu> selectByCourseId(Integer id,CourseMenu menu) {
+        return courseMenuMapper.selectByCourseId(id,menu);
     }
 
 }

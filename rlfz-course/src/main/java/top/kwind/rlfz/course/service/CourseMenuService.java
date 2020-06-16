@@ -48,5 +48,5 @@ public interface CourseMenuService{
      * @param id
      * @return
      */
-    List<CourseMenu> selectByCourseId(Integer id);
+    List<CourseMenu> selectByCourseId(Integer id,CourseMenu menu);
     }
