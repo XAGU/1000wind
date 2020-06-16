@@ -182,7 +182,7 @@
 
         //删除
         window.remove = function (obj) {
-            layer.confirm('确定要删除该课程', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定要删除该视频', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
@@ -216,7 +216,7 @@
             }
             console.log(ids);
             ids = ids.substr(0, ids.length - 1);
-            layer.confirm('确定要删除这些课程', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定要删除这些视频', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
@@ -242,7 +242,7 @@
             table.reload('video-table');
         };
 
-        //修改弹层
+        //预览视频弹层
         window.videoInfo = function (obj) {
             layer.open({
                 type: 2,

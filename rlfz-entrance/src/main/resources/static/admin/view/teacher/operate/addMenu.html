@@ -14,11 +14,10 @@
                 <div class="layui-input-block layui-hide" id="view">
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">学生姓名</label>
+                    <label class="layui-form-label">目录名</label>
                     <div class="layui-input-block">
-                        <select name="userId" id="otype" lay-verify="required" lay-search>
-                            <option value="">请选择</option>
-                        </select>
+                        <input type="text" name="menuName" lay-verify="required" autocomplete="off" placeholder="请输入目录名"
+                               class="layui-input">
                     </div>
                 </div>
             </div>
@@ -26,8 +25,7 @@
     </div>
     <div class="bottom">
         <div class="button-container">
-            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit=""
-                    lay-filter="student-save">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="menu-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -39,7 +37,7 @@
     </div>
 </form>
 <script type="text/html" id="course_id">
-    <input type="text" name="courseId" value="{{ d.courseId}}" class="layui-input layui-hide">
+    <input type="text" name="course.courseId" value="{{ d.courseId}}" class="layui-input layui-hide">
 </script>
 <script src="../../../component/layui/layui.js"></script>
 <script>
@@ -48,7 +46,7 @@
             let form = layui.form;
             let $ = layui.jquery;
             let element = layui.element;
-            var laytpl =layui.laytpl;
+            let laytpl =layui.laytpl;
 
             var getTpl = course_id.innerHTML
                 ,view = document.getElementById('view');
@@ -56,34 +54,21 @@
                 view.innerHTML = html;
             });
 
-            //加载所有学生的下拉菜单
-            $.ajax({
-                url: '/api/user?page=1&limit=9999&roleId=8',
-                dataType: 'json',
-                type: 'get',
-                success: function (data) {
-                    $.each(data.data, function (index, item) {
-                        $('#otype').append(new Option(item.username, item.userId));// 下拉菜单里添加元素
-                    });
-                    layui.form.render("select");
-                }
-            });
-
             //提交操作
-            form.on('submit(student-save)', function (data) {
+            form.on('submit(menu-save)', function (data) {
 
                 if (data.field.enable === undefined) {
                     data.field.enable = 0;
                 }
                 $.ajax({
-                    url: '/api/addStudentCourse',
+                    url: '/api/menu',
                     data: data.field,
                     type: 'post',
                     success: function (result) {
                         if (result.success) {
                             layer.msg(result.msg, {icon: 1, time: 1000}, function () {
                                 parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                                parent.layui.table.reload("student-table");
+                                window.parent.renderTable();//使用父页面的重载渲染方法
                             });
                         } else {
                             layer.msg(result.msg, {icon: 2, time: 1000});

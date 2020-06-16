@@ -42,8 +42,8 @@ public class CourseMenuController extends BaseController {
      * @return
      */
     @GetMapping("/menuOfCourse/{id}")
-    public ResuTable selectByCourseId(@PathVariable Integer id){
-        List<CourseMenu> menuList = courseMenuService.selectByCourseId(id);
+    public ResuTable selectByCourseId(@PathVariable Integer id,CourseMenu menu){
+        List<CourseMenu> menuList = courseMenuService.selectByCourseId(id,menu);
         return dataTable(menuList);
     }
 
