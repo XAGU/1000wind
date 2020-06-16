@@ -8,15 +8,20 @@
 </head>
 <body>
 <body class="pear-container">
+<!--头部查询-->
 <div class="layui-card">
     <div class="layui-card-body">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">科目名</label>
+                <label class="layui-form-label">标题</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="subjectName" placeholder="请输入科目名" class="layui-input">
+                    <input type="text" name="messageName" placeholder="" class="layui-input">
                 </div>
-                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="subject-query">
+                <label class="layui-form-label">内容</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="messageContent" placeholder="" class="layui-input">
+                </div>
+                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="message-query">
                     <i class="layui-icon layui-icon-search"></i>
                     查询
                 </button>
@@ -28,14 +33,16 @@
         </form>
     </div>
 </div>
+<!--表格展示-->
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="subject-table" lay-filter="subject-table"></table>
+        <table id="message-table" lay-filter="message-table"></table>
     </div>
 </div>
 </body>
 
-<script type="text/html" id="subject-toolbar">
+<!--顶部新增和删除工具栏-->
+<script type="text/html" id="message-toolbar">
     <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
         <i class="layui-icon layui-icon-add-1"></i>
         新增
@@ -46,102 +53,94 @@
     </button>
 </script>
 
-<script type="text/html" id="subject-bar">
+<!--行工具栏-->
+<script type="text/html" id="message-bar">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
     </button>
     <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>
 </script>
 
-<script src="../../component/layui/layui.js"></script>
 
+<script type="text/html" id="message-createTime">
+    {{layui.util.toDateString(createTime, 'yyyy-MM-dd HH:mm:ss')}}
+</script>
+
+<script src="../../component/layui/layui.js"></script>
 <script>
     layui.use(['table', 'form', 'jquery'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
 
-
         let cols = [
             [
                 {type: 'checkbox'},
-                {title: '科目名称', field: 'subjectName', align: 'center'},
-                {title: '操作', toolbar: '#subject-bar', align: 'center', width: 130}
+                {title: '标题', field: 'messageName', align: 'center', width: 100},
+                {title: '内容', field: 'messageContent', align: 'center'},
+                {title: '发布时间', field: 'createTime', align: 'center',template:'message-createTime'},
+                {title: '操作', toolbar: '#message-bar', align: 'center', width: 130}
             ]
         ];
 
         table.render({
-            elem: '#subject-table',  //表格id
-            url: '/api/subject',  //异步请求参数
-            page: true,     //开启分页功能
-            cols: cols,     //设置表头。值是一个二维数组。方法渲染方式必填
-            skin: 'line',   //设定表格外观:line（行边框风格）,row（列边框风格）,nob（无边框风格）
-            //开启表格头部工具栏区域
-            toolbar: '#subject-toolbar',
+            elem: '#message-table',
+            url: '/api/message',
+            page: true,
+            cols: cols,
+            skin: 'line',
+            toolbar: '#message-toolbar',
             response: {
-                statusCode: 200 //获取数据成功状态码
+                statusCode: 200 //获取数据成功状态吗
             },
-            //自由配置头部工具栏右侧的图标按钮
             defaultToolbar: [{
                 layEvent: 'refresh',
                 icon: 'layui-icon-refresh',
             }, 'filter', 'print', 'exports']
         });
 
-        table.on('tool(subject-table)', function (obj) {
+        table.on('tool(message-table)', function (obj) {
             if (obj.event === 'remove') {
-                window.remove(obj);
+                remove(obj);
             } else if (obj.event === 'edit') {
-                window.edit(obj);
-            }else if (obj.event === 'teacherInfo'){
-                teacher(obj);
+                edit(obj);
             }
         });
 
-        //监听表头按钮
-        table.on('toolbar(subject-table)', function (obj) {
+        table.on('toolbar(message-table)', function (obj) {
             if (obj.event === 'add') {
-                window.add();
+                add();
             } else if (obj.event === 'refresh') {
-                window.refresh();
+                //刷新
+                refresh();
             } else if (obj.event === 'batchRemove') {
-                window.batchRemove(obj);
+                batchRemove(obj);
             }
         });
 
-        form.on('submit(subject-query)', function (data) {
-            table.reload('subject-table', {where: data.field});
+        form.on('submit(message-query)', function (data) {
+            table.reload('message-table', {where: data.field})
             return false;
         });
 
-        //新增弹层
-        window.add = function () {
+
+        add = function () {
             layer.open({
                 type: 2,
                 title: '新增',
                 shade: 0.1,
-                area: ['30%', '55%'],
-                content: 'operate/addSubject.html',
-                success: function (layero, index) {
-                    form.render('select');
-                    var iframe = window['layui-layer-iframe' + index];
-                    setTimeout(function () {
-                        layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    }, 500)
-                }
+                area: ['700px', '700px'],
+                content: 'operate/addMessage.html'
             });
         };
 
-        //修改弹层
-        window.edit = function (obj) {
+        edit = function (obj) {
             layer.open({
                 type: 2,
                 title: '修改',
                 shade: 0.1,
-                area: ['30%', '55%'],
-                content: 'operate/editSubject.html',
+                area: ['500px', '700px'],
+                content: 'operate/editMessage.html',
                 success: function (layero, index) {
                     var iframe = window['layui-layer-iframe' + index];
                     iframe.child(obj.data);
@@ -154,13 +153,12 @@
             });
         };
 
-        //删除
-        window.remove = function (obj) {
-            layer.confirm('确定要删除该科目', {icon: 3, title: '提示'}, function (index) {
+        remove = function (obj) {
+            layer.confirm('确定要删除该公告', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: "/api/subject/" + obj.data['subjectId'],
+                    url: "/api/message/" + obj.data['messageId'],
                     dataType: 'json',
                     type: 'delete',
                     success: function (result) {
@@ -177,8 +175,7 @@
             });
         };
 
-        //批量删除
-        window.batchRemove = function (obj) {
+        batchRemove = function (obj) {
             let data = table.checkStatus(obj.config.id).data;
             if (data.length === 0) {
                 layer.msg("未选中数据", {icon: 3, time: 1000});
@@ -186,22 +183,21 @@
             }
             let ids = "";
             for (let i = 0; i < data.length; i++) {
-                ids += data[i].subjectId + ",";
+                ids += data[i].messageId + ",";
             }
-            console.log(ids);
             ids = ids.substr(0, ids.length - 1);
-            layer.confirm('确定要删除这些科目', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定要删除这些公告', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: "/api/subject/" + ids,
+                    url: "/api/message/" + ids,
                     dataType: 'json',
                     type: 'delete',
                     success: function (result) {
                         layer.close(loading);
                         if (result.success) {
                             layer.msg(result.msg, {icon: 1, time: 1000}, function () {
-                                table.reload('subject-table');
+                                table.reload('message-table');//重新加载表格
                             });
                         } else {
                             layer.msg(result.msg, {icon: 2, time: 1000});
@@ -211,15 +207,10 @@
             });
         };
 
-        //右上刷新表格按钮
-        window.refresh = function (param) {
-            table.reload('subject-table');
-        };
-    });
-
-
-
+        refresh = function (param) {
+            table.reload('message-table');
+        }
+    })
 </script>
-
 </body>
 </html>

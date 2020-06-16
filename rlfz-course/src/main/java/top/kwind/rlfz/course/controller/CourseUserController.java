@@ -1,11 +1,13 @@
 package top.kwind.rlfz.course.controller;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.kwind.rlfz.common.constant.MessageConstants;
 import top.kwind.rlfz.common.web.base.BaseController;
 import top.kwind.rlfz.common.web.domain.ResuBean;
 import top.kwind.rlfz.common.web.domain.ResuTable;
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
 import top.kwind.rlfz.course.service.CourseUserService;
@@ -51,9 +53,9 @@ public class CourseUserController extends BaseController {
      * @return
      */
     @GetMapping("/studentOfCourse/{id}")
-    public ResuTable getUsersByCourseId(@PathVariable Integer id){
-        List<User> userList =courseUserService.getUsersByCourseId(id);
-        return dataTable(userList);
+    public ResuTable getUsersByCourseId(@PathVariable Integer id, PageDomain pageDomain,User user){
+        PageInfo<User> userPageInfo = courseUserService.getUsersByCourseId(pageDomain, id, user);
+        return pageTable(userPageInfo.getList(),userPageInfo.getTotal());
     }
 
     /**
@@ -70,12 +72,12 @@ public class CourseUserController extends BaseController {
 
     /**
      * 为用户删除课程
-     * @param courseUser
+     * @param cId,sId
      * @return
      */
-    @DeleteMapping("/delStudentCourse")
-    public ResuBean deleteUserCourse(CourseUser courseUser){
-        return decide(courseUserService.deleteUserCourse(courseUser),
+    @DeleteMapping("/delStudentCourse/{cId}/{sId}")
+    public ResuBean deleteUserCourse(@PathVariable("cId")Integer cId,@PathVariable("sId") Integer sId){
+        return decide(courseUserService.deleteUserCourse(cId,sId),
                 MessageConstants.REMOVE_SUCCESS,
                 MessageConstants.REMOVE_FAILURE);
     }

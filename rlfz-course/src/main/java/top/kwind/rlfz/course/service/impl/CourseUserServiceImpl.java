@@ -1,9 +1,13 @@
 package top.kwind.rlfz.course.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 import top.kwind.rlfz.common.tools.security.SecurityUtil;
+import top.kwind.rlfz.common.web.domain.request.PageDomain;
 import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
 import top.kwind.rlfz.course.mapper.CourseUserMapper;
@@ -31,8 +35,9 @@ public class CourseUserServiceImpl implements CourseUserService{
     }
 
     @Override
-    public List<User> getUsersByCourseId(Integer id) {
-        return courseUserMapper.selectUsersByCourse(id);
+    public PageInfo<User> getUsersByCourseId(PageDomain pageDomain,Integer id, User user) {
+        PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
+        return new PageInfo<>(courseUserMapper.selectUsersByCourse(id,user));
     }
 
     @Override
@@ -41,8 +46,8 @@ public class CourseUserServiceImpl implements CourseUserService{
     }
 
     @Override
-    public Boolean deleteUserCourse(CourseUser courseUser) {
-        return courseUserMapper.deleteUserCourse(courseUser) > 0;
+    public Boolean deleteUserCourse(Integer cId,Integer sId) {
+        return courseUserMapper.deleteUserCourse(cId,sId) > 0;
     }
 
     @Override

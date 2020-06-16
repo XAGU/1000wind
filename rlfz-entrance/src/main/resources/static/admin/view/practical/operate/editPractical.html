@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加课程</title>
+    <title>编辑方案</title>
     <link href="../../../component/layui/css/layui.css" rel="stylesheet"/>
     <link href="../../../admin/css/pearCommon.css" rel="stylesheet"/>
     <style>
-        .courseCover .layui-form-label {
+        .practicalCover .layui-form-label {
             line-height: 150px;
             float: left;
         }
 
-        .courseCover .layui-form-label {
+        .practicalCover .layui-form-label {
             line-height: 150px;
         }
         .default_img{
@@ -20,7 +20,7 @@
             margin-left: 35px;
         }
 
-        .layui-upload-courseCover img {
+        .layui-upload-practicalCover img {
             width: 250px;
             height: 150px;
         }
@@ -44,15 +44,15 @@
                 <div class="layui-form-item layui-hide">
                     <label class="layui-form-label">编号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseId" lay-verify="title" autocomplete="off" class="layui-input">
+                        <input type="text" name="practicalId" lay-verify="title" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item courseCover">
-                    <label class="layui-form-label">课程封面</label>
+                <div class="layui-form-item practicalCover">
+                    <label class="layui-form-label">方案封面</label>
                     <div class="layui-input-inline default_img">
                         <div class="layui-upload">
-                            <input type="hidden" name="courseCover" value="/upload/img/default_courseCover.jpg" id="courseCover">
-                            <div class="layui-upload-courseCover">
+                            <input type="hidden" name="practicalCover" value="/upload/img/default_practicalCover.jpg" id="practicalCover">
+                            <div class="layui-upload-practicalCover">
                                 <img class="layui-upload-img">
                             </div>
                         </div>
@@ -66,15 +66,17 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">课程名</label>
+                    <label class="layui-form-label">方案名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="courseName" lay-verify="required" autocomplete="off" placeholder="请输入课程名"
+                        <input type="text" name="practicalName" lay-verify="required" autocomplete="off" placeholder="请输入方案名"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">课程类型</label>
-                    <div class="layui-input-block" id="view">
+                    <label class="layui-form-label">方案链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="practicalUrl" lay-verify="required" autocomplete="off" placeholder="请输入方案链接"
+                               class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -85,18 +87,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">课程介绍</label>
-                    <div class="layui-input-block">
-                        <textarea name="courseInfo" placeholder="请输入内容" class="layui-textarea"></textarea>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
     <div class="bottom">
         <div class="button-container">
-            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="course-save">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="practical-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -107,18 +103,9 @@
         </div>
     </div>
 </form>
-<script type="text/html" id="courseStyleInfo">
-    <select name="courseStyle" lay-verify="required" lay-search>
-        <option value="{{ d.courseStyle}}">{{#if(d.courseStyle === 0){}}实战进阶{{#}if(d.courseStyle === 1){}}技术公开课{{#}if(d.courseStyle === 2){}}毕设项目{{#}if(d.courseStyle === 3){}}毕设公开课{{#}}}</option>
-        <option value="0">实战进阶</option>
-        <option value="1">技术公开课</option>
-        <option value="2">毕设项目</option>
-        <option value="3">毕设公开课</option>
-    </select>
-</script>
 <script src="../../../component/layui/layui.js"></script>
 <script>
-    function child(course) {
+    function child(practical) {
         layui.use(['form', 'jquery', 'element', 'upload','laytpl'], function () {
             let form = layui.form;
             let $ = layui.jquery;
@@ -126,20 +113,14 @@
             var upload = layui.upload;
             var laytpl = layui.laytpl;
 
-            $("input[name='courseId']").val(course.courseId);
-            $("input[name='courseCover']").val(course.courseCover);
-            $(".layui-upload-img").attr("src", course.courseCover);
-            $("input[name='courseName']").val(course.courseName);
-            $("textarea[name='courseInfo']").val(course.courseInfo);
+            $("input[name='practicalId']").val(practical.practicalId);
+            $("input[name='practicalCover']").val(practical.practicalCover);
+            $(".layui-upload-img").attr("src", practical.practicalCover);
+            $("input[name='practicalName']").val(practical.practicalName);
+            $("input[name='practicalUrl']").val(practical.practicalUrl);
 
 
-            var getTpl = courseStyleInfo.innerHTML
-                ,view = document.getElementById('view');
-            laytpl(getTpl).render(course, function(html){
-                view.innerHTML = html;
-            });
-
-            //课程封面图片上传
+            //方案封面图片上传
             var uploadInst = upload.render({
                 elem: '#upload_img' //上传按钮的id值
                 , url: '/upload' //图片上传
@@ -153,7 +134,7 @@
                 , done: function (res, index, upload) {
                     //上传完毕回调
                     if (res.code === 200) {
-                        $("input[name='courseCover']").val(res.data);
+                        $("input[name='practicalCover']").val(res.data);
                         $(".layui-upload-img").attr("src", res.data);
                         layer.msg(res.msg, {icon: 1, time: 1000});
                     }
@@ -175,7 +156,7 @@
                 success: function (result) {
                     if (result.code === 200) {
                         for (let i = 0; i < result.data.length; i++) {
-                            var html = "<option value=\"" + result.data[i].subjectId + "\" " + (result.data[i].subjectId === course.subjectType.subjectId ? "selected" : "") + ">" + result.data[i].subjectName+ "</option>";
+                            var html = "<option value=\"" + result.data[i].subjectId + "\" " + (result.data[i].subjectId === practical.subjectType.subjectId ? "selected" : "") + ">" + result.data[i].subjectName+ "</option>";
                             $("#otype").append(html);
                         }
                         //重新渲染
@@ -187,20 +168,20 @@
             });
 
             //提交操作
-            form.on('submit(course-save)', function (data) {
+            form.on('submit(practical-save)', function (data) {
 
                 if (data.field.enable === undefined) {
                     data.field.enable = 0;
                 }
                 $.ajax({
-                    url: '/api/course',
+                    url: '/api/practical',
                     data: data.field,
                     type: 'put',
                     success: function (result) {
                         if (result.success) {
                             layer.msg(result.msg, {icon: 1, time: 1000}, function () {
                                 parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                                parent.layui.table.reload("course-table");
+                                parent.layui.table.reload("practical-table");
                             });
                         } else {
                             layer.msg(result.msg, {icon: 2, time: 1000});

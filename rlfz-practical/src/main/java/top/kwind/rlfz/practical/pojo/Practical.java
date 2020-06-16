@@ -22,9 +22,9 @@ public class Practical implements Serializable {
     private String practicalCover;
 
     /**
-    * 实训科目类别
-    */
-    private Integer subjectId;
+     *科目类型,多课程对一科目
+     */
+    private SubjectType subjectType;
 
     /**
     * 	pdf方案链接

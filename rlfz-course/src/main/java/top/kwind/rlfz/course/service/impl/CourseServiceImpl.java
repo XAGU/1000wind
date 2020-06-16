@@ -35,7 +35,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public PageInfo<Course> selectByAll(PageDomain pageDomain, Course course) {
-
         PageHelper.startPage(pageDomain.getPage(), pageDomain.getLimit());
         return new PageInfo<Course>(courseMapper.selectByAll(course));
     }

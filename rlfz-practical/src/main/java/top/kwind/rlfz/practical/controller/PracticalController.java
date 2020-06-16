@@ -33,6 +33,17 @@ public class PracticalController extends BaseController {
     }
 
     /**
+     * 查询所有课程包括科目信息
+     * @param pageDomain
+     * @return
+     */
+    @GetMapping("/containSubject")
+    public ResuTable selectAllContainSubject(PageDomain pageDomain,Practical practical){
+        PageInfo<Practical> practicalPageInfo = practicalService.selectAllContainSubject(pageDomain,practical);
+        return pageTable(practicalPageInfo.getList(),practicalPageInfo.getTotal());
+    }
+
+    /**
      * 插入新的实训
      * @param practical
      * @return
