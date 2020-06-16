@@ -15,6 +15,12 @@
     <!--查用户拥有的课程-->
     <select id="selectCoursesByUser" resultMap="top.kwind.rlfz.course.mapper.CourseMapper.BaseResultMap">
         select c.*,
+               u.user_id,
+               u.username,
+               u.real_name,
+               u.head_img,
+               u.email,
+               u.`desc`,
                st.subject_name
         from course c
                  inner join course_user cu on cu.course_id = c.course_id
@@ -26,7 +32,7 @@
     <!--查课程拥有的用户-->
     <select id="selectUsersByCourse" resultMap="top.kwind.rlfz.rbac.mapper.UserMapper.BaseResultMap">
         select u.user_id,
-                u.username,
+        u.username,
         u.real_name,
         u.phone_num,
         u.email,
