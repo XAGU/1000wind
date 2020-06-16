@@ -109,11 +109,11 @@
 </form>
 <script type="text/html" id="courseStyleInfo">
     <select name="courseStyle" lay-verify="required" lay-search>
-        <option value="{{ d.courseStyle}}">{{#if(d.courseStyle === 0){}}实习实训{{#}if(d.courseStyle === 1){}}实战进阶{{#}if(d.courseStyle === 2){}}技术公开课{{#}if(d.courseStyle === 3){}}毕设指导{{#}}}</option>
-        <option value="0">实习实训</option>
-        <option value="1">实战进阶</option>
-        <option value="2">技术公开课</option>
-        <option value="3">毕设指导</option>
+        <option value="{{ d.courseStyle}}">{{#if(d.courseStyle === 0){}}实战进阶{{#}if(d.courseStyle === 1){}}技术公开课{{#}if(d.courseStyle === 2){}}毕设项目{{#}if(d.courseStyle === 3){}}毕设公开课{{#}}}</option>
+        <option value="0">实战进阶</option>
+        <option value="1">技术公开课</option>
+        <option value="2">毕设项目</option>
+        <option value="3">毕设公开课</option>
     </select>
 </script>
 <script src="../../../component/layui/layui.js"></script>

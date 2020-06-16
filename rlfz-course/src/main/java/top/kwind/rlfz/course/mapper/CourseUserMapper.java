@@ -1,6 +1,7 @@
 package top.kwind.rlfz.course.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import top.kwind.rlfz.course.pojo.Course;
 import top.kwind.rlfz.course.pojo.CourseUser;
 import top.kwind.rlfz.rbac.pojo.User;
@@ -25,10 +26,10 @@ public interface CourseUserMapper {
 
     /**
      * 通过课程查用户
-     * @param id
+     * @param user
      * @return
      */
-    List<User> selectUsersByCourse(Integer id);
+    List<User> selectUsersByCourse(@Param("id") Integer id, @Param("user") User user);
 
     /**
      * 给用户添加课程
@@ -39,8 +40,8 @@ public interface CourseUserMapper {
 
     /**
      * 为用户删除课程
-     * @param courseUser
+     * @param cId,sId
      * @return
      */
-    int deleteUserCourse(CourseUser courseUser);
+    int deleteUserCourse(@Param("cId") Integer cId,@Param("sId") Integer sId);
 }
