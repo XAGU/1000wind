@@ -52,5 +52,11 @@ public interface UserService {
      * @return
      */
     User getLoginUser();
+
+    /**
+     * 修改当前登录用户个人信息
+     * @return
+     */
+    Boolean updateMyself(String username, String realName, String phone, String email, String desc);
 }
 
