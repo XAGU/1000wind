@@ -40,7 +40,7 @@
 	-webkit-animation: am-horizontal-roll_show .6s ease-out;
 	animation: am-horizontal-roll_show .6s ease-out;			
 }
-			
-.layui-layer-dialog .layui-layer-content{
+
+/*.layui-layer-dialog .layui-layer-content{
 	padding: 0px!important;
-}		
+}	*/
