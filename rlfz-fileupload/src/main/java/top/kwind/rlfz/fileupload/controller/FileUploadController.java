@@ -1,5 +1,6 @@
-package top.kwind.rlfz.fileupload;
+package top.kwind.rlfz.fileupload.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
@@ -25,6 +26,9 @@ import java.util.UUID;
 @RestController
 public class FileUploadController extends BaseController {
 
+    @Value("${web.upload-path}")
+    private String path;
+
     @PostMapping("/upload")
     public ResuBean fileUpLoad(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws FileNotFoundException, UnsupportedEncodingException {
         //判断文件是否为空
@@ -33,13 +37,14 @@ public class FileUploadController extends BaseController {
         }
         //使用fileupload组件完成文件上传
         //上传的位置
-        String uploadPath = ResourceUtils.getURL("classpath:").getPath() + "static/upload";
+        //String uploadPath = ResourceUtils.getURL("classpath:").getPath() + "static/upload";
+        String uploadPath = path + "/upload";
         String filePath = "/file";
         //获取ContentType
         String contentType = file.getContentType();
         if ("image/jpeg".equals(contentType) || "image/jpg".equals(contentType)) {
             filePath = "/img";
-        }else if ("video/avi".equals(contentType) || "video/mpeg4".equals(contentType) || "video/mp4".equals(contentType)){
+        } else if ("video/avi".equals(contentType) || "video/mpeg4".equals(contentType) || "video/mp4".equals(contentType)) {
             filePath = "/video";
         }
         String realPath = uploadPath + filePath;

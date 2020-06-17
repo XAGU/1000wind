@@ -6,6 +6,9 @@ spring:
 server:
   port: 8080
 
+web:
+  upload-path: E:/大学学习/IdeaProjects/upload
+
 spring:
   profiles: dev
   datasource:
@@ -67,6 +70,8 @@ spring:
     multipart:
       max-file-size: 300MB  #单个文件的大小
       max-request-size: 300MB #上传文件的总大小
+  resources:
+    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/, file:${web.upload-path}
 
 # mybatis 配置
 mybatis:
@@ -90,15 +95,18 @@ logging:
 server:
   port: 8888
 
+web:
+  upload-path: /www/wwwroot/rlfz.1000wind.top/upload
+
 spring:
   profiles: prod
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      username: xagu
-      password: xagu6666
+      username: 1000wind
+      password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://172.17.47.142:3306/xagu_xxb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+      url: jdbc:mysql://localhost:3306/1000wind?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
       # 下面为连接池的补充设置，应用到上面所有数据源中
       # 初始化大小，最小，最大
       initialSize: 1
@@ -151,6 +159,12 @@ spring:
     #日期格式化
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 300MB  #单个文件的大小
+      max-request-size: 300MB #上传文件的总大小
+  resources:
+    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/, file:${web.upload-path}
 
 # mybatis 配置
 mybatis:
@@ -167,5 +181,5 @@ pagehelper:
 logging:
   level:
     root: info
-    com.xagu.xxb: debug
+    com.xagu.xxb: info
 
