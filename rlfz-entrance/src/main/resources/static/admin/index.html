@@ -38,7 +38,8 @@
                                                         class="layui-icon layui-icon-website"></a></li>
             <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;"><img src="../upload/img/default_head.jpg" class="layui-nav-img">admin</a>
+                <a href="javascript:;"><img src="../upload/img/default_head.jpg"
+                                            class="layui-nav-img headImg" alt=""><span class="username">未登录</span></a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" class="pearson">个人信息</a></dd>
                     <dd><a href="javascript:;">安全配置</a></dd>
@@ -117,10 +118,24 @@
             }
         };
 
+        //登录用户信息
+        $.ajax({
+            url: '/api/user/myself',
+            dataType: 'json',
+            type: 'get',
+            success: function (result) {
+                if (result.code === 200) {
+                    $(".headImg").attr("src", result.data.headImg);
+                    $(".username").text(result.data.username);
+                }
+            }
+        });
+
         pearAdmin.render(config);
 
+
         $("#logout").click(function (data) {
-            layer.confirm('是否退出系统？', {icon: 3,title: '提示'}, function (index) {
+            layer.confirm('是否退出系统？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loader = layer.load();
                 $.ajax({
@@ -131,11 +146,11 @@
                     success: function (result) {
                         layer.close(loader);
                         if (result.success) {
-                            layer.msg(result.msg, {icon: 1,time: 500}, function () {
+                            layer.msg(result.msg, {icon: 1, time: 500}, function () {
                                 location.href = "login.html";
                             });
                         } else {
-                            layer.msg(result.msg, {icon: 2,time: 500}, function () {
+                            layer.msg(result.msg, {icon: 2, time: 500}, function () {
                                 location.href = "login.html";
                             });
                         }
