@@ -58,12 +58,12 @@
 
             //加载所有学生的下拉菜单
             $.ajax({
-                url: '/api/user?page=1&limit=9999&roleId=8',
+                url: '/api/user?page=1&limit=9999&roleId=3',
                 dataType: 'json',
                 type: 'get',
                 success: function (data) {
                     $.each(data.data, function (index, item) {
-                        $('#otype').append(new Option(item.username, item.userId));// 下拉菜单里添加元素
+                        $('#otype').append(new Option(item.username+item.realName, item.userId));// 下拉菜单里添加元素
                     });
                     layui.form.render("select");
                 }

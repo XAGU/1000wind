@@ -126,7 +126,7 @@
             success: function (result) {
                 if (result.code === 200) {
                     $(".headImg").attr("src", result.data.headImg);
-                    $(".username").text(result.data.username);
+                    $(".username").text(result.data.realName);
                 }
             }
         });
