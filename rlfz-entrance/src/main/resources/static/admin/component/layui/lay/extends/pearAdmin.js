@@ -418,17 +418,11 @@ layui.define(['table', 'jquery', 'element', 'form', 'pearTab', 'pearMenu', 'pear
             "<div class='select-color'><div class='select-color-title'>主题色</div><div class='select-color-content'><span class='select-color-item layui-icon layui-icon-ok' style='background-color:#FF5722;'></span><span class='select-color-item' style='background-color:#5FB878;'></span><span class='select-color-item'  style='background-color:#1E9FFF;'></span><span class='select-color-item' style='background-color:#FFB800;'></span><span class='select-color-item' style='background-color:darkgray;'></span></div></div>"
 
         html += '<div class="more-menu-list">' +
-            '<a class="more-menu-item" href="http://www.pearadmin.cn/doc/" target="_blank">' +
+            '<a class="more-menu-item" href="https://www.eolinker.com/#/share/index?shareCode=6jugdU" target="_blank">' +
             '<i class="layui-icon layui-icon-read" style="font-size: 19px;"></i> 开发文档' +
             '</a>' +
-            '<a class="more-menu-item" href="https://gitee.com/Jmysy/Pear-Admin-Layui" target="_blank">' +
+            '<a class="more-menu-item" href="https://github.com/XAGU/1000wind" target="_blank">' +
             '<i class="layui-icon layui-icon-tabs" style="font-size: 16px;"></i> 开源地址' +
-            '</a>' +
-            '<a class="more-menu-item" href="http://www.pearadmin.cn/" target="_blank">' +
-            '<i class="layui-icon layui-icon-theme"></i> 官方网站' +
-            '</a>' +
-            '<a class="more-menu-item" href="http://qm.qq.com/cgi-bin/qm/qr?k=wguN0SYYFVTX9K-5Muf36E_J77bCzdDD&authKey=Ye5voDJGOphYUvypWJHOEyHoYBcgzk1l7djAS4fWcmls1jybLnYjwLrzwsS6Jdo3&group_code=682110771" target="_blank">' +
-            '<i class="layui-icon layui-icon-survey"></i> 交流社区' +
             '</a>' +
             '</div>';
 

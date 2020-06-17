@@ -39,7 +39,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             httpServletResponse.setCharacterEncoding("UTF-8");
             httpServletResponse.getWriter().write(objectMapper.writeValueAsString(resuBean));
         }else{
-            httpServletResponse.sendRedirect("/error/403");
+            httpServletResponse.sendRedirect("/admin/view/error/404.html");
         }
     }
 }

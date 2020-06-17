@@ -106,5 +106,30 @@ public class UserServiceImpl implements UserService {
     public User getLoginUser() {
         return (User) SecurityUtil.getLoginUser();
     }
+
+    @Override
+    public Boolean updateMyself(String username, String realName, String phoneNum, String email, String desc) {
+        UserWithPower loginUser = (UserWithPower) SecurityUtil.getLoginUser();
+        if (loginUser == null || loginUser.getPowers() == null) {
+            return false;
+        }
+        User user = new User();
+        user.setUsername(username);
+        user.setRealName(realName);
+        user.setPhoneNum(phoneNum);
+        user.setEmail(email);
+        user.setDesc(desc);
+        user.setUserId(loginUser.getUserId());
+        if (userMapper.updateById(user) > 0) {
+            loginUser.setUsername(username);
+            loginUser.setRealName(realName);
+            loginUser.setPhoneNum(phoneNum);
+            loginUser.setEmail(email);
+            loginUser.setDesc(desc);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
